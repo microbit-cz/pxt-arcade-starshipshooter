@@ -21,15 +21,26 @@ let attacker = sprites.create(img`
 ..5................
 `, SpriteKind.Player)
 
-class PlayerClass {
+class ShipClass {
     dmg: number;
     hp: number;
     spd: number; 
     frt: number; 
     img: string;
     constructor(dmg: number, hp: number, spd: number, frt: number, img: string){
-        
+        this.dmg = dmg;
+        this.hp = hp;
+        this.spd = spd;
+        this.frt = frt;
+        this.img = img;
     }
+}
+
+const shipClasses = {
+    striker: [7,4,2,5, "yes"],
+    falcon: [7, 4, 2, 5, "yes"],
+    blitz: [7, 4, 2, 5, "yes"],
+    sentinel: [7, 4, 2, 5, "yes"]
 }
 
 let spd = 80
