@@ -80,11 +80,12 @@ let player = sprites.create(img`
 let dmg = 7
 let hp = 20
 let health = hp
-let spd = 80
+let spd = 3
 let frt = 5
 
+
 while (true){
-    player.x = (Math.clamp(10, 151, player.x + controller.dx(spd)))
-    player.y = (Math.clamp(10, 110, player.y + controller.dy(spd)))
+    const velocity = normalize(controller.dx(), controller.dy())
+    player.setPosition(Math.clamp(10, 151, player.x + velocity[0] * spd), Math.clamp(10, 110, player.y + velocity[1] * spd))
     basic.pause(25)
 }
