@@ -18,7 +18,7 @@ const shipStats = {
     "juggernaut": new PlayerShip(6,7,4,3)
 }
 
-let isPlaying = false
+let state = "menu"
 
 const strikerImg = img`
             ..55................
@@ -293,19 +293,27 @@ let player = sprites.create(juggImg, SpriteKind.Player)
 player.setFlag(SpriteFlag.Invisible, true)
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
-    logo.destroy()
-    player.setFlag(SpriteFlag.Invisible, false)
-    isPlaying = true
+    if (state == "menu"){
+        logo.destroy()
+        state = "classSelect"
+        player.setFlag(SpriteFlag.Invisible, false)//remove
+        play()//remove
+        //display first animation frame
+    }else if (state == "classSelect"){
+        //select ship
+    }
 })
 
 
 let spd = 3
 
-while (true){
-    if (controller.anyButton.isPressed()){
-        const velocity = normalize(controller.dx(), controller.dy())//determines the direction of movement
-        player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * spd), Math.clamp(10, 110, player.y + velocity[1] * spd))
+function play(){
+    while (true) {
+        if (controller.anyButton.isPressed()) {
+            const velocity = normalize(controller.dx(), controller.dy())//determines the direction of movement
+            player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * spd), Math.clamp(10, 110, player.y + velocity[1] * spd))
+        }
+
+        basic.pause(25)
     }
-    
-    basic.pause(25)
 }
