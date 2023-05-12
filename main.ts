@@ -827,7 +827,35 @@ let player: Sprite
 let state = "menu"
 let selectIndex = 0
 
+let playerVelocity = [0, 0]
 
+controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
+    if (state == "difficultySelect"){
+
+    }else if (state == "playing"){
+        playerVelocity[1] -= 1
+    }
+})
+
+controller.up.onEvent(ControllerButtonEvent.Released, function () {
+    if (state == "playing") {
+        playerVelocity[1] += 1
+    }
+})
+
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (state == "difficultySelect") {
+
+    } else if (state == "playing") {
+        playerVelocity[1] += 1
+    }
+})
+
+controller.down.onEvent(ControllerButtonEvent.Released, function () {
+    if (state == "playing") {
+        playerVelocity[1] -= 1
+    }
+})
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     if (state == "menu"){
@@ -843,33 +871,47 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
 })
 
 controller.left.onEvent(ControllerButtonEvent.Pressed, function() {
-    if (state != "classSelect") return
-    
-    if (selectIndex > 0){
-        selectIndex -= 1
-    }else{
-        selectIndex = classSelectFrames.length - 1
+    if (state == "classSelect"){
+        if (selectIndex > 0) {
+            selectIndex -= 1
+        } else {
+            selectIndex = classSelectFrames.length - 1
+        }
+        classSelectMenu.setImage(classSelectFrames[selectIndex])
+    } else if (state = "playing") {
+        playerVelocity[0] -= 1
     }
-    classSelectMenu.setImage(classSelectFrames[selectIndex])
 })
 
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (state != "classSelect") return
-
-    if (selectIndex < classSelectFrames.length - 1) {
-        selectIndex += 1
-    } else {
-        selectIndex = 0
+controller.left.onEvent(ControllerButtonEvent.Released, function () {
+    if (state == "playing") {
+        playerVelocity[0] += 1
     }
-    classSelectMenu.setImage(classSelectFrames[selectIndex])
+})
+
+controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
+    if (state == "classSelect") {
+        if (selectIndex < classSelectFrames.length - 1) {
+            selectIndex += 1
+        } else {
+            selectIndex = 0
+        }
+        classSelectMenu.setImage(classSelectFrames[selectIndex])
+    } else if (state = "playing"){
+        playerVelocity[0] += 1
+    }
+})
+
+controller.right.onEvent(ControllerButtonEvent.Released, function() {
+    if (state == "playing"){
+        playerVelocity[0] -= 1
+    }
 })
 
 function play(){
     while (state == "playing") {
-        if (controller.anyButton.isPressed()) {
-            const velocity = normalize(controller.dx(), controller.dy())//determines the direction of movement
-            player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
-        }
+        const velocity = normalize(playerVelocity[0], playerVelocity[1])
+        player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         basic.pause(25)
     }
 }
