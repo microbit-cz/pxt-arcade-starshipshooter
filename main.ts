@@ -19,6 +19,8 @@ const shipStats = [
     new PlayerShip(5, 7, 4, 4)
 ]
 
+
+
 const classSelectFrames = [
 img`
 ................................................................................................................................................................
@@ -817,7 +819,7 @@ const bulletImg = img`
 2 2 2 
 `
 
-const spdMultiplier = .65
+const spdMultiplier = .6
 
 let classSelectMenu: Sprite
 let player: Sprite
@@ -868,8 +870,6 @@ function play(){
             const velocity = normalize(controller.dx(), controller.dy())//determines the direction of movement
             player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         }
+        basic.pause(25)
     }
 }
-
-
-//USE SCENES
