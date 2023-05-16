@@ -14,12 +14,10 @@ class PlayerShip {
 
 const shipStats = [
     new PlayerShip(7, 5, 4, 4), 
-    new PlayerShip(5, 4, 7, 4), 
+    new PlayerShip(5, 4, 6, 4), 
     new PlayerShip(4, 4, 7, 7), 
     new PlayerShip(5, 7, 4, 4)
 ]
-
-
 
 const classSelectFrames = [
 img`
@@ -869,6 +867,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         player = sprites.create(shipSprites[selectIndex])
         state = "playing"
         play()
+    }else{
+        console.log("negr")
     }
 })
 
@@ -913,9 +913,10 @@ controller.right.onEvent(ControllerButtonEvent.Released, function() {
 function play(){
     info.setLife(shipStats[selectIndex].hp)
     info.setScore(0)
-    while (state == "playing") {
+
+    game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         basic.pause(25)
-    }
+    })
 }
