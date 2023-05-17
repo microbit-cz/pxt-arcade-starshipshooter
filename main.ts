@@ -684,7 +684,10 @@ const logo = sprites.create(img`
 ................................................................
 `)
 const bulletImg = img`
-2 2 2 
+. b b . 
+b 3 3 b 
+b 3 3 b 
+. b b . 
 `
 
 const spdMultiplier = .6
@@ -696,6 +699,8 @@ let state = "menu"
 let selectIndex = 0
 
 let playerVelocity = [0, 0]
+
+let activeBullets: Array<any> = []
 
 
 scene.setBackgroundImage(img`
@@ -868,7 +873,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         state = "playing"
         play()
     }else{
-        console.log("negr")
+        activeBullets.push([sprites.create(bulletImg, SpriteKind.Projectile), 1, shipStats[selectIndex].dmg])
     }
 })
 
@@ -917,6 +922,7 @@ function play(){
     game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
+        //loop through all the bullets and move them
         basic.pause(25)
     })
 }

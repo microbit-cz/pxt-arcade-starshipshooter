@@ -670,10 +670,6 @@ namespace myImages {
 ................................................................................................................................................................
 ................................................................................................................................................................
 `;
-            case "image11":
-            case "bullet":return img`
-2 2 2 
-`;
             case "image3":
             case "Background":return img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -804,6 +800,13 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6fffffffffffffffffffffffffffffffffffffffffffffffffffff
+`;
+            case "image11":
+            case "bullet":return img`
+. b b . 
+b 3 3 b 
+b 3 3 b 
+. b b . 
 `;
         }
         return null;
