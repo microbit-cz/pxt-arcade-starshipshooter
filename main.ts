@@ -701,7 +701,7 @@ let selectIndex = 0
 
 let playerVelocity = [0, 0]
 let fireDelay: number
-let activeDelay = 0
+let lastFire = 0
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -875,8 +875,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         state = "playing"
         play()
     }else{
-        if (activeDelay > 0) return
-        activeDelay = fireDelay
+        if (game.runtime()-lastFire < fireDelay) return
+        lastFire = game.runtime()
         let projectile = sprites.createProjectile(bulletImg, 140, 0, SpriteKind.Projectile)
         projectile.setPosition(player.x + 12, player.y)
     }
@@ -922,12 +922,12 @@ controller.right.onEvent(ControllerButtonEvent.Released, function() {
 
 function play(){
     info.setLife(shipStats[selectIndex].hp)
-    info.setScore(0)
+    let textSprite = textsprite.create(0+" $")
+    textSprite.setPosition(80, 6)
 
     game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
-        player.setPosition(Math.clamp(10, 70, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
-        if (activeDelay > 0) activeDelay -= 25
+        player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         basic.pause(25)
     })
 }
