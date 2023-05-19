@@ -835,30 +835,26 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 `)
 
 controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
-    if (state == "difficultySelect"){
-
-    }else if (state == "playing"){
-        playerVelocity[1] -= 1
+    if (state == "playing"){
+        playerVelocity[1] = Math.sign(controller.dy())
     }
 })
 
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
     if (state == "playing") {
-        playerVelocity[1] += 1
+        playerVelocity[1] = Math.sign(controller.dy())
     }
 })
 
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (state == "difficultySelect") {
-
-    } else if (state == "playing") {
-        playerVelocity[1] += 1
+    if (state == "playing") {
+        playerVelocity[1] = Math.sign(controller.dy())
     }
 })
 
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
     if (state == "playing") {
-        playerVelocity[1] -= 1
+        playerVelocity[1] = Math.sign(controller.dy())
     }
 })
 
@@ -874,7 +870,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         fireDelay = Math.round(1000 / shipStats[selectIndex].frt)
         state = "playing"
         play()
-    }else{
+    }else if (state == "playing"){
         if (game.runtime()-lastFire < fireDelay) return
         lastFire = game.runtime()
         let projectile = sprites.createProjectile(bulletImg, 140, 0, SpriteKind.Projectile)
@@ -890,14 +886,14 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function() {
             selectIndex = classSelectFrames.length - 1
         }
         classSelectMenu.setImage(classSelectFrames[selectIndex])
-    } else if (state = "playing") {
-        playerVelocity[0] -= 1
+    } else if (state == "playing") {
+        playerVelocity[0] = Math.sign(controller.dx())
     }
 })
 
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     if (state == "playing") {
-        playerVelocity[0] += 1
+        playerVelocity[0] = Math.sign(controller.dx())
     }
 })
 
@@ -909,14 +905,14 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
             selectIndex = 0
         }
         classSelectMenu.setImage(classSelectFrames[selectIndex])
-    } else if (state = "playing"){
-        playerVelocity[0] += 1
+    } else if (state == "playing"){
+        playerVelocity[0] = Math.sign(controller.dx())
     }
 })
 
 controller.right.onEvent(ControllerButtonEvent.Released, function() {
     if (state == "playing"){
-        playerVelocity[0] -= 1
+        playerVelocity[0] = Math.sign(controller.dx())
     }
 })
 
