@@ -689,6 +689,24 @@ b 3 3 b
 b 3 3 b 
 . b b . 
 `
+const enemyImg = img`
+. . . . . . . . b b . . 
+. . . . . . . b 2 b . . 
+. . . . . . b 2 3 b . . 
+. . . . . . b b b b . . 
+. . . . b b 3 3 3 b . . 
+. . b b 2 3 3 3 b b b b 
+. b 2 b b 2 3 b 6 4 5 b 
+b 3 b 6 4 b 2 b 6 4 5 b 
+b 3 b 6 4 b 2 b 6 4 5 b 
+. b 2 b b 2 3 b 6 4 5 b 
+. . b b 2 3 3 3 b b b b 
+. . . . b b 3 3 3 b . . 
+. . . . . . b b b b . . 
+. . . . . . b 2 3 b . . 
+. . . . . . . b 2 b . . 
+. . . . . . . . b b . . 
+`
 
 const spdMultiplier = .6
 const bulletSpeed = 3
@@ -702,6 +720,9 @@ let selectIndex = 0
 let playerVelocity = [0, 0]
 let fireDelay: number
 let lastFire = 0
+
+let spawnRate = 3000
+let lastEnemySpawn = 0
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -920,10 +941,20 @@ function play(){
     info.setLife(shipStats[selectIndex].hp)
     let textSprite = textsprite.create(0+" $")
     textSprite.setPosition(80, 6)
+    lastEnemySpawn = game.runtime()
 
     game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
+        if (lastEnemySpawn+spawnRate < game.runtime()){
+            spawnEnemy()
+            lastEnemySpawn = game.runtime()
+        } 
         basic.pause(25)
     })
+}
+
+function spawnEnemy() {
+    let enemy = sprites.create(enemyImg, SpriteKind.Enemy)
+    enemy.setPosition(randint(90, 140), randint(24, 104))
 }

@@ -54,6 +54,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "juggSelect"
     },
+    "image12": {
+        "data": "hwQMABAAAAAAAACwCwAAAAAAADuzAAAAAACwsisLAAAAALBrtgsAAAAAK0u0sgAAAAA7siuzAAAAuzMjMjO7ALCyM7u7MysLK7OzZmY7O7K7u7tERLu7uwAAsFVVCwAAAACwu7sLAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "enemy"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
