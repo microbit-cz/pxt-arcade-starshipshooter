@@ -1,4 +1,4 @@
-class PlayerShip {
+class Ship {
     dmg: number;
     hp: number;
     spd: number;
@@ -11,12 +11,15 @@ class PlayerShip {
     }
 }
 
-
 const shipStats = [
-    new PlayerShip(7, 5, 4, 4), 
-    new PlayerShip(5, 4, 6, 8), 
-    new PlayerShip(5, 4, 7, 3), 
-    new PlayerShip(5, 7, 4, 4)
+    new Ship(7, 5, 4, 4),
+    new Ship(5, 4, 6, 8),
+    new Ship(5, 4, 7, 3),
+    new Ship(5, 7, 4, 4)
+]
+
+const enemyStats = [
+    new Ship(1, 3, 4, 1)
 ]
 
 const classSelectFrames = [
@@ -721,8 +724,10 @@ let playerVelocity = [0, 0]
 let fireDelay: number
 let lastFire = 0
 
-let spawnRate = 3000
+let spawnRate = 500
 let lastEnemySpawn = 0
+
+let activeEnemies:Array<Sprite> = []
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -937,24 +942,31 @@ controller.right.onEvent(ControllerButtonEvent.Released, function() {
     }
 })
 
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Sprite, enemy: Sprite) {
+    bullet.destroy()
+    enemy.destroy()
+})
+
 function play(){
     info.setLife(shipStats[selectIndex].hp)
     let textSprite = textsprite.create(0+" $")
     textSprite.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
+    console.log("havlas je negr")
 
     game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         if (lastEnemySpawn+spawnRate < game.runtime()){
-            spawnEnemy()
+            activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
-        } 
+        }
         basic.pause(25)
     })
 }
 
 function spawnEnemy() {
-    let enemy = sprites.create(enemyImg, SpriteKind.Enemy)
-    enemy.setPosition(randint(90, 140), randint(24, 104))
+    let enemy = sprites.createProjectile(enemyImg, -40, 0, SpriteKind.Enemy)
+    enemy.setPosition(160, randint(24, 104))
+    return enemy
 }
