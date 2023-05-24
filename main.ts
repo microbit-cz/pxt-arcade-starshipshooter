@@ -1,4 +1,4 @@
-class Ship {
+class PlayerShip {
     dmg: number;
     hp: number;
     spd: number;
@@ -11,15 +11,29 @@ class Ship {
     }
 }
 
+class EnemyShip {
+    dmg: number;
+    hp: number;
+    spd: number;
+    drop: number;
+    constructor(dmg: number, hp: number, spd: number, drop: number) {
+        this.dmg = dmg;
+        this.hp = hp;
+        this.spd = spd;
+        this.drop = drop;
+    }
+}
+
 const shipStats = [
-    new Ship(7, 5, 4, 4),
-    new Ship(5, 4, 6, 8),
-    new Ship(5, 4, 7, 3),
-    new Ship(5, 7, 4, 4)
+    new PlayerShip(7, 5, 4, 4),
+    new PlayerShip(4, 4, 6, 8),
+    new PlayerShip(6, 4, 7, 3),
+    new PlayerShip(5, 7, 4, 4)
 ]
 
 const enemyStats = [
-    new Ship(1, 3, 4, 1)
+    new EnemyShip(1, 3, 4, 2),
+    new EnemyShip(1, 5, 3, 5)
 ]
 
 const classSelectFrames = [
@@ -636,6 +650,49 @@ img`
 `
 ]
 
+const enemySprites = [
+img`
+. . . . . . . . b b . . 
+. . . . . . . b 2 b . . 
+. . . . . . b 2 3 b . . 
+. . . . . . b b b b . . 
+. . . . b b 3 3 3 b . . 
+. . b b 2 3 3 3 b b b b 
+. b 2 b b 2 3 b 6 4 5 b 
+b 3 b 6 4 b 2 b 6 4 5 b 
+b 3 b 6 4 b 2 b 6 4 5 b 
+. b 2 b b 2 3 b 6 4 5 b 
+. . b b 2 3 3 3 b b b b 
+. . . . b b 3 3 3 b . . 
+. . . . . . b b b b . . 
+. . . . . . b 2 3 b . . 
+. . . . . . . b 2 b . . 
+. . . . . . . . b b . . 
+`,
+img`
+..........bbbb......
+.......bbb2222bbb...
+.......b6b2222b6b...
+.....bbbb223322bbbb.
+.....b44b233332b44b.
+.....b4b22333322b4b.
+.....bbb23333332bbb.
+...bbbbbbbbbbbbbbb..
+.bb222bbbb2222222bbb
+b2233b6444b333332b5b
+b2233b6444b333332b5b
+.bb222bbbb2222222bbb
+...bbbbbbbbbbbbbbb..
+.....bbb23333332bbb.
+.....b4b22333322b4b.
+.....b44b233332b44b.
+.....bbbb223322bbbb.
+.......b6b2222b6b...
+.......bbb2222bbb...
+..........bbbb......
+`
+]
+
 const logo = sprites.create(img`
 ................................................................
 ................................................................
@@ -691,24 +748,6 @@ const bulletImg = img`
 b 3 3 b 
 b 3 3 b 
 . b b . 
-`
-const enemyImg = img`
-. . . . . . . . b b . . 
-. . . . . . . b 2 b . . 
-. . . . . . b 2 3 b . . 
-. . . . . . b b b b . . 
-. . . . b b 3 3 3 b . . 
-. . b b 2 3 3 3 b b b b 
-. b 2 b b 2 3 b 6 4 5 b 
-b 3 b 6 4 b 2 b 6 4 5 b 
-b 3 b 6 4 b 2 b 6 4 5 b 
-. b 2 b b 2 3 b 6 4 5 b 
-. . b b 2 3 3 3 b b b b 
-. . . . b b 3 3 3 b . . 
-. . . . . . b b b b . . 
-. . . . . . b 2 3 b . . 
-. . . . . . . b 2 b . . 
-. . . . . . . . b b . . 
 `
 
 const spdMultiplier = .6
@@ -943,8 +982,14 @@ controller.right.onEvent(ControllerButtonEvent.Released, function() {
 })
 
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Sprite, enemy: Sprite) {
+    let enemyHealth = sprites.readDataNumber(enemy, "health")
     bullet.destroy()
-    enemy.destroy()
+    enemyHealth -= shipStats[selectIndex].dmg
+    if (enemyHealth <= 0){
+        enemy.destroy()
+    }else {
+        sprites.setDataNumber(enemy, "health", enemyHealth)
+    }
 })
 
 function play(){
@@ -952,7 +997,6 @@ function play(){
     let textSprite = textsprite.create(0+" $")
     textSprite.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
-    console.log("havlas je negr")
 
     game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
@@ -966,7 +1010,9 @@ function play(){
 }
 
 function spawnEnemy() {
-    let enemy = sprites.createProjectile(enemyImg, -40, 0, SpriteKind.Enemy)
+    let enemyIndex = randint(0, enemyStats.length-1)
+    let enemy = sprites.createProjectile(enemySprites[enemyIndex], -enemyStats[enemyIndex].spd*10, 0, SpriteKind.Enemy)
     enemy.setPosition(160, randint(24, 104))
+    sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
     return enemy
 }

@@ -827,6 +827,29 @@ b 3 b 6 4 b 2 b 6 4 5 b
 . . . . . . . b 2 b . . 
 . . . . . . . . b b . . 
 `;
+            case "image13":
+            case "enemy2":return img`
+..........bbbb......
+.......bbb2222bbb...
+.......b6b2222b6b...
+.....bbbb223322bbbb.
+.....b44b233332b44b.
+.....b4b22333322b4b.
+.....bbb23333332bbb.
+...bbbbbbbbbbbbbbb..
+.bb222bbbb2222222bbb
+b2233b6444b333332b5b
+b2233b6444b333332b5b
+.bb222bbbb2222222bbb
+...bbbbbbbbbbbbbbb..
+.....bbb23333332bbb.
+.....b4b22333322b4b.
+.....b44b233332b44b.
+.....bbbb223322bbbb.
+.......b6b2222b6b...
+.......bbb2222bbb...
+..........bbbb......
+`;
         }
         return null;
     })
