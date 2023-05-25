@@ -986,6 +986,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     bullet.destroy()
     enemyHealth -= shipStats[selectIndex].dmg
     if (enemyHealth <= 0){
+        activeEnemies.splice(activeEnemies.indexOf(enemy), activeEnemies.indexOf(enemy))
         enemy.destroy()
     }else {
         sprites.setDataNumber(enemy, "health", enemyHealth)
@@ -1005,7 +1006,7 @@ function play(){
             activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
         }
-        basic.pause(25)
+        console.log(activeEnemies.length)
     })
 }
 
