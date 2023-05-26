@@ -671,24 +671,24 @@ b 3 b 6 4 b 2 b 6 4 5 b
 `,
 img`
 ..........bbbb......
-.......bbb2222bbb...
-.......b6b2222b6b...
-.....bbbb223322bbbb.
-.....b44b233332b44b.
-.....b4b22333322b4b.
-.....bbb23333332bbb.
+.........b2222b.....
+.........b2222b.....
+......bbb223322b....
+.....bb4b233332b....
+.....b4b22333322b...
+.....bbb23333332bb..
 ...bbbbbbbbbbbbbbb..
 .bb222bbbb2222222bbb
 b2233b6444b333332b5b
 b2233b6444b333332b5b
 .bb222bbbb2222222bbb
 ...bbbbbbbbbbbbbbb..
-.....bbb23333332bbb.
-.....b4b22333322b4b.
-.....b44b233332b44b.
-.....bbbb223322bbbb.
-.......b6b2222b6b...
-.......bbb2222bbb...
+.....bbb23333332bb..
+.....b4b22333322b...
+.....bb4b233332b....
+......bbb223322b....
+.........b2222b.....
+.........b2222b.....
 ..........bbbb......
 `
 ]
@@ -1003,7 +1003,7 @@ function play(){
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         updateEnemies()
-        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 1000){
+        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 6){
             activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
         }
@@ -1022,6 +1022,10 @@ function spawnEnemy() {
 
 function updateEnemies() {
     for (let enemy of activeEnemies){
-        enemy.setPosition(enemy.x - enemyStats[sprites.readDataNumber(enemy, "index")].spd * spdMultiplier, enemy.y)
+        let i = sprites.readDataNumber(enemy, "index")
+        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > activeEnemies[i-1].x + 20)){ //fix this shit
+            enemy.setPosition(Math.clamp(80, 200, enemy.x - enemyStats[sprites.readDataNumber(enemy, "index")].spd * spdMultiplier), enemy.y)
+        }
+        enemy.setPosition(enemy.x, enemy.y - Math.clamp(-enemyStats[i].spd * spdMultiplier, enemyStats[i].spd * spdMultiplier, (enemy.y - player.y)))
     }
 }
