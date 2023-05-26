@@ -986,7 +986,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     bullet.destroy()
     enemyHealth -= shipStats[selectIndex].dmg
     if (enemyHealth <= 0){
-        activeEnemies.splice(activeEnemies.indexOf(enemy), activeEnemies.indexOf(enemy))
+        activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
         enemy.destroy()
     }else {
         sprites.setDataNumber(enemy, "health", enemyHealth)
@@ -1002,18 +1002,26 @@ function play(){
     game.onUpdateInterval(25, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
-        if (lastEnemySpawn+spawnRate < game.runtime()){
+        updateEnemies()
+        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 1000){
             activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
         }
-        console.log(activeEnemies.length)
+        //console.log(activeEnemies.length)
     })
 }
 
 function spawnEnemy() {
     let enemyIndex = randint(0, enemyStats.length-1)
-    let enemy = sprites.createProjectile(enemySprites[enemyIndex], -enemyStats[enemyIndex].spd*10, 0, SpriteKind.Enemy)
+    let enemy = sprites.create(enemySprites[enemyIndex], SpriteKind.Enemy)
     enemy.setPosition(160, randint(24, 104))
     sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
+    sprites.setDataNumber(enemy, "index", enemyIndex)
     return enemy
+}
+
+function updateEnemies() {
+    for (let enemy of activeEnemies){
+        enemy.setPosition(enemy.x - enemyStats[sprites.readDataNumber(enemy, "index")].spd * spdMultiplier, enemy.y)
+    }
 }
