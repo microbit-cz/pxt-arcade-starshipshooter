@@ -64,6 +64,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "enemy2"
     },
+    "image14": {
+        "data": "hwQSABIAAAAAAAsAAACwAAAAAAAAsAsAAACwCwAAAAAAKwsAAACwsgAAAACwIwsAAACwMgsAAACwMwuwuwuwMwsAAACwMwuwRAuwMwsAAAAruwtLRLSwu7IAAAA7IrtbVbW7IrMAAAA7I7tTIjW7MrMAAAA7M7IzIjMrM7MAAAA7M7MzIjM7M7MAAAArMzMjIjIzM7IAAACwMjMjIjIzIwsAAAAAKzMjIjIzsgAAAAAAsDIiIiIjCwAAAAAAACsiuyKyAAAAAAAAALAiIiILAAAAAAAAAAC7u7sAAAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "enemy3"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",

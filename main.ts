@@ -33,7 +33,8 @@ const shipStats = [
 
 const enemyStats = [
     new EnemyShip(1, 3, 4, 2),
-    new EnemyShip(1, 5, 3, 5)
+    new EnemyShip(1, 5, 3, 5),
+    new EnemyShip(1, 4, 3.5, 4)
 ]
 
 const classSelectFrames = [
@@ -690,6 +691,26 @@ b2233b6444b333332b5b
 .........b2222b.....
 .........b2222b.....
 ..........bbbb......
+`,
+img`
+......bbbbbb......
+...bbb233332b.....
+..b333b233332b....
+.b2233b2233332b...
+bbbbbbbbb233332b..
+.......bbbb33332b.
+......bb333333222b
+....bb45533222222b
+....b4452222222b2b
+....b4452222222b2b
+....bb45533222222b
+......bb333333222b
+.......bbbb33332b.
+bbbbbbbbb233332b..
+.b2233b2233332b...
+..b333b233332b....
+...bbb233332b.....
+......bbbbbb......
 `
 ]
 
@@ -1014,14 +1035,10 @@ function play(){
 function spawnEnemy() {
     let enemyIndex = randint(0, enemyStats.length-1)
     let enemy = sprites.create(enemySprites[enemyIndex], SpriteKind.Enemy)
-    let aiType = randint(1, 2)
-    let spawnY = randint(34, 70)
-    enemy.setPosition(160, spawnY)
+    enemy.setPosition(160, randint(16, 112))
     sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
     sprites.setDataNumber(enemy, "index", enemyIndex)
-    sprites.setDataNumber(enemy, "aiType", aiType)
     sprites.setDataNumber(enemy, "moveDirY", 1)
-    if (aiType == 2) sprites.setDataNumber(enemy, "spawnY", spawnY)
     return enemy
 }
 
@@ -1029,18 +1046,14 @@ function updateEnemies() {
     for (let enemy of activeEnemies){
         let i = activeEnemies.indexOf(enemy)
         let enemyIndex = sprites.readDataNumber(enemy, "index")
-        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){ //fix this shit
-            enemy.setPosition(Math.clamp(80, 200, enemy.x - enemyStats[sprites.readDataNumber(enemy, "index")].spd * spdMultiplier), enemy.y)
+        let enemyDir = [0, 0]
+        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){
+            enemyDir[0] = -1
         }
-        if (sprites.readDataNumber(enemy, "aiType") == 1){
-            if (enemy.y <= 16) sprites.setDataNumber(enemy, "moveDirY", 1)
-            else if (enemy.y >= 112) sprites.setDataNumber(enemy, "moveDirY", -1)
-            enemy.setPosition(enemy.x, enemy.y + enemyStats[enemyIndex].spd * spdMultiplier * sprites.readDataNumber(enemy, "moveDirY"))
-        }
-        else if (sprites.readDataNumber(enemy, "aiType") == 2){
-            if (enemy.y + 24 < sprites.readDataNumber(enemy, "spawnY")) sprites.setDataNumber(enemy, "moveDirY", 1)
-            else if (enemy.y - 24 > sprites.readDataNumber(enemy, "spawnY")) sprites.setDataNumber(enemy, "moveDirY", -1)
-            enemy.setPosition(enemy.x, enemy.y + enemyStats[enemyIndex].spd * spdMultiplier * sprites.readDataNumber(enemy, "moveDirY"))
-        }
+        if (enemy.y <= 16) sprites.setDataNumber(enemy, "moveDirY", 1)
+        else if (enemy.y >= 112) sprites.setDataNumber(enemy, "moveDirY", -1)
+        enemyDir[1] = sprites.readDataNumber(enemy, "moveDirY")
+        enemyDir = normalize(enemyDir[0], enemyDir[1])
+        enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
     }
 }
