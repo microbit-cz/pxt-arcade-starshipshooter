@@ -1014,18 +1014,33 @@ function play(){
 function spawnEnemy() {
     let enemyIndex = randint(0, enemyStats.length-1)
     let enemy = sprites.create(enemySprites[enemyIndex], SpriteKind.Enemy)
-    enemy.setPosition(160, randint(24, 104))
+    let aiType = randint(1, 2)
+    let spawnY = randint(34, 70)
+    enemy.setPosition(160, spawnY)
     sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
     sprites.setDataNumber(enemy, "index", enemyIndex)
+    sprites.setDataNumber(enemy, "aiType", aiType)
+    sprites.setDataNumber(enemy, "moveDirY", 1)
+    if (aiType == 2) sprites.setDataNumber(enemy, "spawnY", spawnY)
     return enemy
 }
 
 function updateEnemies() {
     for (let enemy of activeEnemies){
-        let i = sprites.readDataNumber(enemy, "index")
-        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > activeEnemies[i-1].x + 20)){ //fix this shit
+        let i = activeEnemies.indexOf(enemy)
+        let enemyIndex = sprites.readDataNumber(enemy, "index")
+        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){ //fix this shit
             enemy.setPosition(Math.clamp(80, 200, enemy.x - enemyStats[sprites.readDataNumber(enemy, "index")].spd * spdMultiplier), enemy.y)
         }
-        enemy.setPosition(enemy.x, enemy.y - Math.clamp(-enemyStats[i].spd * spdMultiplier, enemyStats[i].spd * spdMultiplier, (enemy.y - player.y)))
+        if (sprites.readDataNumber(enemy, "aiType") == 1){
+            if (enemy.y <= 16) sprites.setDataNumber(enemy, "moveDirY", 1)
+            else if (enemy.y >= 112) sprites.setDataNumber(enemy, "moveDirY", -1)
+            enemy.setPosition(enemy.x, enemy.y + enemyStats[enemyIndex].spd * spdMultiplier * sprites.readDataNumber(enemy, "moveDirY"))
+        }
+        else if (sprites.readDataNumber(enemy, "aiType") == 2){
+            if (enemy.y + 24 < sprites.readDataNumber(enemy, "spawnY")) sprites.setDataNumber(enemy, "moveDirY", 1)
+            else if (enemy.y - 24 > sprites.readDataNumber(enemy, "spawnY")) sprites.setDataNumber(enemy, "moveDirY", -1)
+            enemy.setPosition(enemy.x, enemy.y + enemyStats[enemyIndex].spd * spdMultiplier * sprites.readDataNumber(enemy, "moveDirY"))
+        }
     }
 }
