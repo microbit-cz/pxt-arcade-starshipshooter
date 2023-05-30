@@ -1021,7 +1021,8 @@ function play(){
     lastEnemySpawn = game.runtime()
 
     game.onUpdateInterval(10, function() {
-        player.setPosition(24, Math.clamp(10, 110, player.y + playerVelocity[1] * shipStats[selectIndex].spd * spdMultiplier))
+        let velocity = normalize(playerVelocity[0], playerVelocity[1])
+        player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         updateEnemies()
         if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 5){
             activeEnemies.push(spawnEnemy())
@@ -1050,8 +1051,8 @@ function updateEnemies() {
         if ((i == 0 && enemy.x > 60) || (i != 0 && enemy.x > 60 + 20*i)){
             enemyDir[0] = -1
         }
-        if (enemy.y <= 16) sprites.setDataNumber(enemy, "moveDirY", 1)
-        else if (enemy.y >= 112) sprites.setDataNumber(enemy, "moveDirY", -1)
+        if (enemy.y <= 10) sprites.setDataNumber(enemy, "moveDirY", 1)
+        else if (enemy.y >= 110) sprites.setDataNumber(enemy, "moveDirY", -1)
         enemyDir[1] = sprites.readDataNumber(enemy, "moveDirY")
         enemyDir = normalize(enemyDir[0], enemyDir[1])
         enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
