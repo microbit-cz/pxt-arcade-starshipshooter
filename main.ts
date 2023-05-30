@@ -771,7 +771,7 @@ b 3 3 b
 . b b . 
 `
 
-const spdMultiplier = .6
+const spdMultiplier = .4
 const bulletSpeed = 3
 
 let classSelectMenu: Sprite
@@ -1020,15 +1020,14 @@ function play(){
     textSprite.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
 
-    game.onUpdateInterval(25, function() {
+    game.onUpdateInterval(10, function() {
         const velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         updateEnemies()
-        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 6){
+        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 5){
             activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
         }
-        //console.log(activeEnemies.length)
     })
 }
 
@@ -1047,7 +1046,7 @@ function updateEnemies() {
         let i = activeEnemies.indexOf(enemy)
         let enemyIndex = sprites.readDataNumber(enemy, "index")
         let enemyDir = [0, 0]
-        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){
+        if ((i == 0 && enemy.x > 60) || (i != 0 && enemy.x > 60 + 20*i)){
             enemyDir[0] = -1
         }
         if (enemy.y <= 16) sprites.setDataNumber(enemy, "moveDirY", 1)
