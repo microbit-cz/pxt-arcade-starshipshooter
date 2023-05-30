@@ -952,7 +952,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     }else if (state == "classSelect"){
         classSelectMenu.destroy()
         player = sprites.create(shipSprites[selectIndex])
-        player.setPosition(40, 64)
+        player.setPosition(24, 64)
         fireDelay = Math.round(1000 / shipStats[selectIndex].frt)
         state = "playing"
         play()
@@ -1021,14 +1021,15 @@ function play(){
     lastEnemySpawn = game.runtime()
 
     game.onUpdateInterval(10, function() {
-        const velocity = normalize(playerVelocity[0], playerVelocity[1])
-        player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
+        player.setPosition(24, Math.clamp(10, 110, player.y + playerVelocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         updateEnemies()
         if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 5){
             activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
         }
     })
+
+    
 }
 
 function spawnEnemy() {
