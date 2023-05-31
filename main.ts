@@ -1,3 +1,8 @@
+namespace SpriteKind {
+    export const enemyBullet = SpriteKind.create()
+}
+
+
 class PlayerShip {
     dmg: number;
     hp: number;
@@ -16,11 +21,13 @@ class EnemyShip {
     hp: number;
     spd: number;
     drop: number;
-    constructor(dmg: number, hp: number, spd: number, drop: number) {
+    frt: number;
+    constructor(dmg: number, hp: number, spd: number, drop: number, frt: number) {
         this.dmg = dmg;
         this.hp = hp;
         this.spd = spd;
         this.drop = drop;
+        this.frt = frt;
     }
 }
 
@@ -32,9 +39,9 @@ const shipStats = [
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 3, 4, 2),
-    new EnemyShip(1, 5, 3, 5),
-    new EnemyShip(1, 4, 3.5, 4)
+    new EnemyShip(1, 3, 4, 2, 1),
+    new EnemyShip(1, 5, 3, 5, .5),
+    new EnemyShip(1, 4, 3.5, 4, 1.5)
 ]
 
 const classSelectFrames = [
@@ -765,6 +772,12 @@ const logo = sprites.create(img`
 ................................................................
 `)
 const bulletImg = img`
+. 7 7 . 
+7 8 8 7 
+7 8 8 7 
+. 7 7 . 
+`
+const enemyBulletImg = img`
 . b b . 
 b 3 3 b 
 b 3 3 b 
@@ -1040,6 +1053,7 @@ function spawnEnemy() {
     sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
     sprites.setDataNumber(enemy, "index", enemyIndex)
     sprites.setDataNumber(enemy, "moveDirY", 1)
+    sprites.setDataNumber(enemy, "lastShot", game.runtime())
     return enemy
 }
 
@@ -1056,5 +1070,11 @@ function updateEnemies() {
         enemyDir[1] = sprites.readDataNumber(enemy, "moveDirY")
         enemyDir = normalize(enemyDir[0], enemyDir[1])
         enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
+        if (game.runtime() - sprites.readDataNumber(enemy, "lastShot") > (1000/enemyStats[enemyIndex].frt)){
+            console.log("shoot")
+            sprites.setDataNumber(enemy, "lastShot", game.runtime())
+            let bullet = sprites.createProjectile(enemyBulletImg, -140, 0, SpriteKind.enemyBullet)
+            bullet.setPosition(enemy.x - 12, enemy.y)
+        }
     }
 }

@@ -539,13 +539,6 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6fffffffffffffffffffffffffffffffffffffffffffffffffffff
 `;
-            case "image11":
-            case "bullet":return img`
-. b b . 
-b 3 3 b 
-b 3 3 b 
-. b b . 
-`;
             case "image9":
             case "falconSelect":return img`
 ................................................................................................................................................................
@@ -870,6 +863,20 @@ bbbbbbbbb233332b..
 ..b333b233332b....
 ...bbb233332b.....
 ......bbbbbb......
+`;
+            case "image11":
+            case "enemyBullet":return img`
+. b b . 
+b 3 3 b 
+b 3 3 b 
+. b b . 
+`;
+            case "image15":
+            case "playerBullet":return img`
+. 7 7 . 
+7 8 8 7 
+7 8 8 7 
+. 7 7 . 
 `;
         }
         return null;
