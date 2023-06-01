@@ -33,7 +33,7 @@ class EnemyShip {
 const shipStats = [
     new PlayerShip(7, 5, 4, 4),
     new PlayerShip(2, 4, 5, 7),
-    new PlayerShip(6, 4, 7, 3),
+    new PlayerShip(7, 4, 7, 3),
     new PlayerShip(5, 7, 4, 4)
 ]
 
@@ -1037,7 +1037,7 @@ function play(){
     textSprite.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
 
-    game.onUpdateInterval(10, function() {
+    game.onUpdate(function() {
         let velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         updateEnemies()
@@ -1046,8 +1046,6 @@ function play(){
             lastEnemySpawn = game.runtime()
         }
     })
-
-    
 }
 
 function spawnEnemy() {
