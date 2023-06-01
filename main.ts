@@ -1,7 +1,6 @@
 namespace SpriteKind {
-    export const enemyBullet = SpriteKind.create()
+    export const EnemyProjectile = SpriteKind.create()
 }
-
 
 class PlayerShip {
     dmg: number;
@@ -33,15 +32,15 @@ class EnemyShip {
 
 const shipStats = [
     new PlayerShip(7, 5, 4, 4),
-    new PlayerShip(4, 4, 6, 8),
+    new PlayerShip(2, 4, 5, 7),
     new PlayerShip(6, 4, 7, 3),
     new PlayerShip(5, 7, 4, 4)
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 3, 4, 2, 1),
-    new EnemyShip(1, 5, 3, 5, .5),
-    new EnemyShip(1, 4, 3.5, 4, 1.5)
+    new EnemyShip(1, 4, 4, 2, .5),
+    new EnemyShip(1, 7, 3, 5, .25),
+    new EnemyShip(1, 5, 3.5, 4, .75)
 ]
 
 const classSelectFrames = [
@@ -275,11 +274,11 @@ img`
 ...5ffffffffffffffffffffffffffffffffff5...dffffffffdffdffffdfdffffdffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
 ...5ffffffffffffffffffffffffffffffffff5...dfffffffffffdffffdfddfffdffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
 ...5ffffffffffffffffffffffffffffffffff5...dffffffffffffffffffffffffffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
-...5ffffffffffffffffffffffffffffffffff5...dffffffffffffff2ff2f2222fffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
-...5ffffffffffffffffffffffffffffffffff5...dffffffffffffff2ff2f2ff2fffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
-...5ffffffffffffffffffffffffffffffffff5...dffffffffff222f2222f2222fffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
-...5ffffffffffffffffffffffffffffffffff5...dffffffffffffff2ff2f2ffffffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
-...5ffffffffffffffffffffffffffffffffff5...dffffffffffffff2ff2f2ffffffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
+...5ffffffffffffffffffffffffffffffffff5...dfffffffffff222ff2fff2f2222ffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
+...5ffffffffffffffffffffffffffffffffff5...dfffffffffff2ff2f22f22f2fffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
+...5ffffffffffffffffffffffffffffffffff5...dfffffff222f2ff2f2f2f2f2f22ffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
+...5ffffffffffffffffffffffffffffffffff5...dfffffffffff2ff2f2fff2f2ff2ffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
+...5ffffffffffffffffffffffffffffffffff5...dfffffffffff222ff2fff2f2222ffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
 ...5ffffffffffffffffffffffffffffffffff5...dffffffffffffffffffffffffffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
 ...5ffffffffffffffffffffffffffffffffff5...dffffffffffffffffffffffffffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
 ...5ffffffffffffffffffffffffffffffffff5...dffffffffffffffffffffffffffffffffffd....5ffffffffffffffffffffffffffffffffff5...5ffffffffffffffffffffffffffffffffff5...
@@ -797,7 +796,7 @@ let playerVelocity = [0, 0]
 let fireDelay: number
 let lastFire = 0
 
-let spawnRate = 500
+let spawnRate = 1000
 let lastEnemySpawn = 0
 
 let activeEnemies:Array<Sprite> = []
@@ -964,7 +963,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         classSelectMenu = sprites.create(classSelectFrames[0])
     }else if (state == "classSelect"){
         classSelectMenu.destroy()
-        player = sprites.create(shipSprites[selectIndex])
+        player = sprites.create(shipSprites[selectIndex], SpriteKind.Player)
         player.setPosition(24, 64)
         fireDelay = Math.round(1000 / shipStats[selectIndex].frt)
         state = "playing"
@@ -972,7 +971,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     }else if (state == "playing"){
         if (game.runtime()-lastFire < fireDelay) return
         lastFire = game.runtime()
-        let projectile = sprites.createProjectile(bulletImg, 140, 0, SpriteKind.Projectile)
+        let projectile = sprites.createProjectile(bulletImg, 150, 0, SpriteKind.Projectile)
         projectile.setPosition(player.x + 12, player.y)
     }
 })
@@ -1027,6 +1026,11 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     }
 })
 
+sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet: Sprite, plr: Sprite) {
+    bullet.destroy()
+    info.changeLifeBy(-1)
+})
+
 function play(){
     info.setLife(shipStats[selectIndex].hp)
     let textSprite = textsprite.create(0+" $")
@@ -1037,7 +1041,7 @@ function play(){
         let velocity = normalize(playerVelocity[0], playerVelocity[1])
         player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
         updateEnemies()
-        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 5){
+        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 4){
             activeEnemies.push(spawnEnemy())
             lastEnemySpawn = game.runtime()
         }
@@ -1062,7 +1066,7 @@ function updateEnemies() {
         let i = activeEnemies.indexOf(enemy)
         let enemyIndex = sprites.readDataNumber(enemy, "index")
         let enemyDir = [0, 0]
-        if ((i == 0 && enemy.x > 60) || (i != 0 && enemy.x > 60 + 20*i)){
+        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){
             enemyDir[0] = -1
         }
         if (enemy.y <= 10) sprites.setDataNumber(enemy, "moveDirY", 1)
@@ -1071,9 +1075,8 @@ function updateEnemies() {
         enemyDir = normalize(enemyDir[0], enemyDir[1])
         enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
         if (game.runtime() - sprites.readDataNumber(enemy, "lastShot") > (1000/enemyStats[enemyIndex].frt)){
-            console.log("shoot")
             sprites.setDataNumber(enemy, "lastShot", game.runtime())
-            let bullet = sprites.createProjectile(enemyBulletImg, -140, 0, SpriteKind.enemyBullet)
+            let bullet = sprites.createProjectile(enemyBulletImg, -70, 0, SpriteKind.EnemyProjectile)
             bullet.setPosition(enemy.x - 12, enemy.y)
         }
     }
