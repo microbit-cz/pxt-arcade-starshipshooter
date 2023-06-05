@@ -19,13 +19,11 @@ class EnemyShip {
     dmg: number;
     hp: number;
     spd: number;
-    drop: number;
     frt: number;
-    constructor(dmg: number, hp: number, spd: number, drop: number, frt: number) {
+    constructor(dmg: number, hp: number, spd: number, frt: number) {
         this.dmg = dmg;
         this.hp = hp;
         this.spd = spd;
-        this.drop = drop;
         this.frt = frt;
     }
 }
@@ -38,9 +36,9 @@ const shipStats = [
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 4, 4, 2, .5),
-    new EnemyShip(1, 7, 3, 5, .25),
-    new EnemyShip(1, 5, 3.5, 4, .75)
+    new EnemyShip(1, 4, 4, .75),
+    new EnemyShip(1, 7, 3, .4),
+    new EnemyShip(1, 5, 3.5, .85)
 ]
 
 const classSelectFrames = [
@@ -800,6 +798,8 @@ let spawnRate = 1000
 let lastEnemySpawn = 0
 
 let activeEnemies:Array<Sprite> = []
+let wave = 0
+let enemiesToSpawn = 0
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -966,8 +966,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         player = sprites.create(shipSprites[selectIndex], SpriteKind.Player)
         player.setPosition(24, 64)
         fireDelay = Math.round(1000 / shipStats[selectIndex].frt)
-        state = "playing"
-        play()
+        
+        setupWave()
     }else if (state == "playing"){
         if (game.runtime()-lastFire < fireDelay) return
         lastFire = game.runtime()
@@ -1021,6 +1021,11 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     if (enemyHealth <= 0){
         activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
         enemy.destroy()
+        enemiesToSpawn--
+        console.log(enemiesToSpawn)
+        if (enemiesToSpawn > 0) return
+        console.log("Wave ended")
+        endWave()
     }else {
         sprites.setDataNumber(enemy, "health", enemyHealth)
     }
@@ -1031,22 +1036,23 @@ sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet
     info.changeLifeBy(-1)
 })
 
-function play(){
+
+function setupWave(){
     info.setLife(shipStats[selectIndex].hp)
-    let textSprite = textsprite.create(0+" $")
+    wave++
+    let textSprite = textsprite.create("WAVE "+wave)
     textSprite.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
-
-    game.onUpdate(function() {
-        let velocity = normalize(playerVelocity[0], playerVelocity[1])
-        player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
-        updateEnemies()
-        if (lastEnemySpawn+spawnRate < game.runtime() && activeEnemies.length < 4){
-            activeEnemies.push(spawnEnemy())
-            lastEnemySpawn = game.runtime()
-        }
-    })
+    enemiesToSpawn = Math.clamp(10, 100, 10 + Math.pow(wave, 2))
+    state = "playing"
 }
+
+function endWave(){
+    state = "shop"
+    for (let v of activeEnemies) v.destroy()
+    activeEnemies = []
+}
+
 
 function spawnEnemy() {
     let enemyIndex = randint(0, enemyStats.length-1)
@@ -1079,3 +1085,14 @@ function updateEnemies() {
         }
     }
 }
+
+game.onUpdate(function () {
+    if (state != "playing") return
+    let velocity = normalize(playerVelocity[0], playerVelocity[1])
+    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
+    updateEnemies()
+    if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn > 0) {
+        activeEnemies.push(spawnEnemy())
+        lastEnemySpawn = game.runtime()
+    }
+})
