@@ -768,6 +768,8 @@ const logo = sprites.create(img`
 ................................................................
 ................................................................
 `)
+let waveLabel: Sprite
+
 const bulletImg = img`
 . 7 7 . 
 7 8 8 7 
@@ -800,6 +802,8 @@ let lastEnemySpawn = 0
 let activeEnemies:Array<Sprite> = []
 let wave = 0
 let enemiesToSpawn = 0
+
+
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -1015,6 +1019,7 @@ controller.right.onEvent(ControllerButtonEvent.Released, function() {
 })
 
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Sprite, enemy: Sprite) {
+    if (state != "playing") return
     let enemyHealth = sprites.readDataNumber(enemy, "health")
     bullet.destroy()
     enemyHealth -= shipStats[selectIndex].dmg
@@ -1032,6 +1037,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
 })
 
 sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet: Sprite, plr: Sprite) {
+    if (state != "playing") return
     bullet.destroy()
     info.changeLifeBy(-1)
 })
@@ -1040,10 +1046,11 @@ sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet
 function setupWave(){
     info.setLife(shipStats[selectIndex].hp)
     wave++
-    let textSprite = textsprite.create("WAVE "+wave)
-    textSprite.setPosition(80, 6)
+    waveLabel = textsprite.create("WAVE " + wave)
+    waveLabel.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
     enemiesToSpawn = Math.clamp(10, 100, 10 + Math.pow(wave, 2))
+    playerVelocity = [0, 0]
     state = "playing"
 }
 
@@ -1051,6 +1058,9 @@ function endWave(){
     state = "shop"
     for (let v of activeEnemies) v.destroy()
     activeEnemies = []
+    waveLabel.destroy()
+    basic.pause(5000)
+    setupWave()
 }
 
 
