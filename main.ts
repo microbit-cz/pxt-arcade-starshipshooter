@@ -1042,6 +1042,12 @@ sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet
     info.changeLifeBy(-1)
 })
 
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, plr: Sprite){
+    info.changeLifeBy(-sprites.readDataNumber(enemy, "health")/2)
+    activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
+    enemy.destroy()
+})
+
 
 function setupWave(){
     info.setLife(shipStats[selectIndex].hp)
@@ -1049,7 +1055,7 @@ function setupWave(){
     waveLabel = textsprite.create("WAVE " + wave)
     waveLabel.setPosition(80, 6)
     lastEnemySpawn = game.runtime()
-    enemiesToSpawn = Math.clamp(10, 100, 10 + Math.pow(wave, 2))
+    enemiesToSpawn = Math.round(Math.clamp(10, 60, 10 + Math.pow(wave, 1.5)))
     playerVelocity = [0, 0]
     state = "playing"
 }
@@ -1101,7 +1107,7 @@ game.onUpdate(function () {
     let velocity = normalize(playerVelocity[0], playerVelocity[1])
     player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
     updateEnemies()
-    if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn > 0) {
+    if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn-activeEnemies.length > 0) {
         activeEnemies.push(spawnEnemy())
         lastEnemySpawn = game.runtime()
     }
