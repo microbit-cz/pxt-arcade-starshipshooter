@@ -723,7 +723,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         projectile.setPosition(player.x + 12, player.y)
         ammo--
         ammoLabel.destroy()
-        ammoLabel = textsprite.create(convertToText(ammo))
+        ammoLabel = textsprite.create(convertToText(ammo), 15, 4)
         ammoLabel.setPosition(10, 110)
     }
 })
