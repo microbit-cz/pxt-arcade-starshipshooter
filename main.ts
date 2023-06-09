@@ -312,6 +312,245 @@ img`
 `
 ]
 
+const difficultySelectFrames = [
+img`
+dddddddddddddddddddddddddddddddddddd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dfffffffddddfddddfddddfdffdffffffffd
+dfffffffdffffdffdfdffffdffdffffffffd
+dfffffffdddffddddfddddfddddffffffffd
+dfffffffdffffdffdffffdfffdfffffffffd
+dfffffffddddfdffdfddddfffdfffffffffd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dddddddddddddddddddddddddddddddddddd
+....................................
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fff5ff5f5555f5555f5fff5f5555f5ffff5
+5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5
+5fff5f55f5ff5f5555f5f5f5f5555f5ffff5
+5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5
+5fff5ff5f5555f5f55f5fff5f5ff5f555ff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fffffff5ff5f5555f5555f555fffffffff5
+5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5
+5fffffff5555f5555f5555f5ff5ffffffff5
+5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5
+5fffffff5ff5f5ff5f5f55f555fffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fff555f5ff5f5555f5555f5ff5f5555fff5
+5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5
+5ffff5ff5f55f5555f5555f5f55f555ffff5
+5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5
+5fff555f5ff5f5555f5ff5f5ff5f5555fff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+`,
+img`
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fffffff5555f5555f5555f5ff5ffffffff5
+5fffffff5ffff5ff5f5ffff5ff5ffffffff5
+5fffffff555ff5555f5555f5555ffffffff5
+5fffffff5ffff5ff5ffff5fff5fffffffff5
+5fffffff5555f5ff5f5555fff5fffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+dddddddddddddddddddddddddddddddddddd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dfffdffdfddddfddddfdfffdfddddfdffffd
+dfffddfdfdffdfdffdfddfddfdffdfdffffd
+dfffdfddfdffdfddddfdfdfdfddddfdffffd
+dfffdffdfdffdfdfdffdfffdfdffdfdffffd
+dfffdffdfddddfdfddfdfffdfdffdfdddffd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dddddddddddddddddddddddddddddddddddd
+....................................
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fffffff5ff5f5555f5555f555fffffffff5
+5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5
+5fffffff5555f5555f5555f5ff5ffffffff5
+5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5
+5fffffff5ff5f5ff5f5f55f555fffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fff555f5ff5f5555f5555f5ff5f5555fff5
+5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5
+5ffff5ff5f55f5555f5555f5f55f555ffff5
+5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5
+5fff555f5ff5f5555f5ff5f5ff5f5555fff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+`,
+img`
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fffffff5555f5555f5555f5ff5ffffffff5
+5fffffff5ffff5ff5f5ffff5ff5ffffffff5
+5fffffff555ff5555f5555f5555ffffffff5
+5fffffff5ffff5ff5ffff5fff5fffffffff5
+5fffffff5555f5ff5f5555fff5fffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fff5ff5f5555f5555f5fff5f5555f5ffff5
+5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5
+5fff5f55f5ff5f5555f5f5f5f5555f5ffff5
+5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5
+5fff5ff5f5555f5f55f5fff5f5ff5f555ff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+dddddddddddddddddddddddddddddddddddd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dfffffffdffdfddddfddddfdddfffffffffd
+dfffffffdffdfdffdfdffdfdffdffffffffd
+dfffffffddddfddddfddddfdffdffffffffd
+dfffffffdffdfdffdfdfdffdffdffffffffd
+dfffffffdffdfdffdfdfddfdddfffffffffd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dddddddddddddddddddddddddddddddddddd
+....................................
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fff555f5ff5f5555f5555f5ff5f5555fff5
+5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5
+5ffff5ff5f55f5555f5555f5f55f555ffff5
+5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5
+5fff555f5ff5f5555f5ff5f5ff5f5555fff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+`,
+img`
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fffffff5555f5555f5555f5ff5ffffffff5
+5fffffff5ffff5ff5f5ffff5ff5ffffffff5
+5fffffff555ff5555f5555f5555ffffffff5
+5fffffff5ffff5ff5ffff5fff5fffffffff5
+5fffffff5555f5ff5f5555fff5fffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fff5ff5f5555f5555f5fff5f5555f5ffff5
+5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5
+5fff5f55f5ff5f5555f5f5f5f5555f5ffff5
+5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5
+5fff5ff5f5555f5f55f5fff5f5ff5f555ff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+....................................
+555555555555555555555555555555555555
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5fffffff5ff5f5555f5555f555fffffffff5
+5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5
+5fffffff5555f5555f5555f5ff5ffffffff5
+5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5
+5fffffff5ff5f5ff5f5f55f555fffffffff5
+5ffffffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffffffff5
+555555555555555555555555555555555555
+....................................
+....................................
+....................................
+dddddddddddddddddddddddddddddddddddd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dfffdddfdffdfddddfddddfdffdfddddfffd
+dffffdffddfdfdffffdffdfddfdfdffffffd
+dffffdffdfddfddddfddddfdfddfdddffffd
+dffffdffdffdffffdfdffdfdffdfdffffffd
+dfffdddfdffdfddddfdffdfdffdfddddfffd
+dffffffffffffffffffffffffffffffffffd
+dffffffffffffffffffffffffffffffffffd
+dddddddddddddddddddddddddddddddddddd
+....................................
+`
+]
+
 const shipSprites = [
 img`
 ..55................
@@ -516,7 +755,7 @@ const difficulties = [0.7, 1, 1.5, 2]
 const spdMultiplier = .4
 const bulletSpeed = 3
 
-let classSelectMenu: Sprite
+let selectMenu: Sprite
 let player: Sprite
 
 let state = "menu"
@@ -686,16 +925,19 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     if (state == "menu"){
         logo.setPosition(80, 24)
-        classSelectMenu = sprites.create(classSelectFrames[0])
-        classSelectMenu.setPosition(80, 80)
+        selectMenu = sprites.create(classSelectFrames[0])
+        selectMenu.setPosition(80, 80)
         state = "classSelect"
     }else if (state == "classSelect"){
-        classSelectMenu.destroy()
-        logo.destroy()
         player = sprites.create(shipSprites[selectIndex], SpriteKind.Player)
         player.setPosition(24, 64)
         fireDelay = Math.round(1000 / shipStats[selectIndex].frt)
-        setupWave()
+        state = "difficultySelect"
+    }else if(state == "difficultySelect"){
+        selectMenu.destroy()
+        logo.destroy()
+
+
     }else if (state == "playing"){
         if (game.runtime()-lastFire < fireDelay || ammo <= 0) return
         lastFire = game.runtime()
@@ -715,7 +957,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function() {
         } else {
             selectIndex = classSelectFrames.length - 1
         }
-        classSelectMenu.setImage(classSelectFrames[selectIndex])
+        selectMenu.setImage(classSelectFrames[selectIndex])
     } else if (state == "playing") {
         playerVelocity[0] = Math.sign(controller.dx())
     }
@@ -734,7 +976,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
         } else {
             selectIndex = 0
         }
-        classSelectMenu.setImage(classSelectFrames[selectIndex])
+        selectMenu.setImage(classSelectFrames[selectIndex])
     } else if (state == "playing"){
         playerVelocity[0] = Math.sign(controller.dx())
     }
@@ -778,15 +1020,15 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, p
 
 function setupWave(){
     info.setLife(shipStats[selectIndex].hp)
-    ammo = 20
     wave++
     waveLabel = textsprite.create("WAVE " + wave)
     waveLabel.z = 1
     waveLabel.setPosition(80, 6)
+    enemiesToSpawn = Math.round(Math.clamp(10, 60, 10 + Math.pow(wave, 1.5)))
+    ammo = Math.round(enemiesToSpawn*1.5)
     ammoLabel = textsprite.create(convertToText(ammo), 15, 4)
     ammoLabel.setPosition(6, 116)
     lastEnemySpawn = game.runtime()
-    enemiesToSpawn = Math.round(Math.clamp(10, 60, 10 + Math.pow(wave, 1.5)))
     state = "playing"
 }
 
