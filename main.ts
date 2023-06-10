@@ -314,240 +314,236 @@ img`
 
 const difficultySelectFrames = [
 img`
-dddddddddddddddddddddddddddddddddddd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dfffffffddddfddddfddddfdffdffffffffd
-dfffffffdffffdffdfdffffdffdffffffffd
-dfffffffdddffddddfddddfddddffffffffd
-dfffffffdffffdffdffffdfffdfffffffffd
-dfffffffddddfdffdfddddfffdfffffffffd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dddddddddddddddddddddddddddddddddddd
-....................................
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fff5ff5f5555f5555f5fff5f5555f5ffff5
-5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5
-5fff5f55f5ff5f5555f5f5f5f5555f5ffff5
-5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5
-5fff5ff5f5555f5f55f5fff5f5ff5f555ff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fffffff5ff5f5555f5555f555fffffffff5
-5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5
-5fffffff5555f5555f5555f5ff5ffffffff5
-5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5
-5fffffff5ff5f5ff5f5f55f555fffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fff555f5ff5f5555f5555f5ff5f5555fff5
-5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5
-5ffff5ff5f55f5555f5555f5f55f555ffff5
-5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5
-5fff555f5ff5f5555f5ff5f5ff5f5555fff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
+.dddddddddddddddddddddddddddddddddddd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dfffffffddddfddddfddddfdffdffffffffd
+.dfffffffdffffdffdfdffffdffdffffffffd
+.dfffffffdddffddddfddddfddddffffffffd
+.dfffffffdffffdffdffffdfffdfffffffffd
+.dfffffffddddfdffdfddddfffdfffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dddddddddddddddddddddddddddddddddddd
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fff5ff5f5555f5555f5fff5f5555f5ffff5.
+5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5.
+5fff5f55f5ff5f5555f5f5f5f5555f5ffff5.
+5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5.
+5fff5ff5f5555f5f55f5fff5f5ff5f555ff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fffffff5ff5f5555f5555f555fffffffff5.
+5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5.
+5fffffff5555f5555f5555f5ff5ffffffff5.
+5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5.
+5fffffff5ff5f5ff5f5f55f555fffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fff555f5ff5f5555f5555f5ff5f5555fff5.
+5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5.
+5ffff5ff5f55f5555f5555f5f55f555ffff5.
+5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5.
+5fff555f5ff5f5555f5ff5f5ff5f5555fff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
 `,
 img`
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fffffff5555f5555f5555f5ff5ffffffff5
-5fffffff5ffff5ff5f5ffff5ff5ffffffff5
-5fffffff555ff5555f5555f5555ffffffff5
-5fffffff5ffff5ff5ffff5fff5fffffffff5
-5fffffff5555f5ff5f5555fff5fffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-dddddddddddddddddddddddddddddddddddd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dfffdffdfddddfddddfdfffdfddddfdffffd
-dfffddfdfdffdfdffdfddfddfdffdfdffffd
-dfffdfddfdffdfddddfdfdfdfddddfdffffd
-dfffdffdfdffdfdfdffdfffdfdffdfdffffd
-dfffdffdfddddfdfddfdfffdfdffdfdddffd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dddddddddddddddddddddddddddddddddddd
-....................................
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fffffff5ff5f5555f5555f555fffffffff5
-5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5
-5fffffff5555f5555f5555f5ff5ffffffff5
-5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5
-5fffffff5ff5f5ff5f5f55f555fffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fff555f5ff5f5555f5555f5ff5f5555fff5
-5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5
-5ffff5ff5f55f5555f5555f5f55f555ffff5
-5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5
-5fff555f5ff5f5555f5ff5f5ff5f5555fff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fffffff5555f5555f5555f5ff5ffffffff5.
+5fffffff5ffff5ff5f5ffff5ff5ffffffff5.
+5fffffff555ff5555f5555f5555ffffffff5.
+5fffffff5ffff5ff5ffff5fff5fffffffff5.
+5fffffff5555f5ff5f5555fff5fffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+.dddddddddddddddddddddddddddddddddddd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dfffdffdfddddfddddfdfffdfddddfdffffd
+.dfffddfdfdffdfdffdfddfddfdffdfdffffd
+.dfffdfddfdffdfddddfdfdfdfddddfdffffd
+.dfffdffdfdffdfdfdffdfffdfdffdfdffffd
+.dfffdffdfddddfdfddfdfffdfdffdfdddffd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dddddddddddddddddddddddddddddddddddd
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fffffff5ff5f5555f5555f555fffffffff5.
+5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5.
+5fffffff5555f5555f5555f5ff5ffffffff5.
+5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5.
+5fffffff5ff5f5ff5f5f55f555fffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fff555f5ff5f5555f5555f5ff5f5555fff5.
+5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5.
+5ffff5ff5f55f5555f5555f5f55f555ffff5.
+5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5.
+5fff555f5ff5f5555f5ff5f5ff5f5555fff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
 `,
 img`
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fffffff5555f5555f5555f5ff5ffffffff5
-5fffffff5ffff5ff5f5ffff5ff5ffffffff5
-5fffffff555ff5555f5555f5555ffffffff5
-5fffffff5ffff5ff5ffff5fff5fffffffff5
-5fffffff5555f5ff5f5555fff5fffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fff5ff5f5555f5555f5fff5f5555f5ffff5
-5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5
-5fff5f55f5ff5f5555f5f5f5f5555f5ffff5
-5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5
-5fff5ff5f5555f5f55f5fff5f5ff5f555ff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-dddddddddddddddddddddddddddddddddddd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dfffffffdffdfddddfddddfdddfffffffffd
-dfffffffdffdfdffdfdffdfdffdffffffffd
-dfffffffddddfddddfddddfdffdffffffffd
-dfffffffdffdfdffdfdfdffdffdffffffffd
-dfffffffdffdfdffdfdfddfdddfffffffffd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dddddddddddddddddddddddddddddddddddd
-....................................
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fff555f5ff5f5555f5555f5ff5f5555fff5
-5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5
-5ffff5ff5f55f5555f5555f5f55f555ffff5
-5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5
-5fff555f5ff5f5555f5ff5f5ff5f5555fff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fffffff5555f5555f5555f5ff5ffffffff5.
+5fffffff5ffff5ff5f5ffff5ff5ffffffff5.
+5fffffff555ff5555f5555f5555ffffffff5.
+5fffffff5ffff5ff5ffff5fff5fffffffff5.
+5fffffff5555f5ff5f5555fff5fffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fff5ff5f5555f5555f5fff5f5555f5ffff5.
+5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5.
+5fff5f55f5ff5f5555f5f5f5f5555f5ffff5.
+5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5.
+5fff5ff5f5555f5f55f5fff5f5ff5f555ff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+.dddddddddddddddddddddddddddddddddddd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dfffffffdffdfddddfddddfdddfffffffffd
+.dfffffffdffdfdffdfdffdfdffdffffffffd
+.dfffffffddddfddddfddddfdffdffffffffd
+.dfffffffdffdfdffdfdfdffdffdffffffffd
+.dfffffffdffdfdffdfdfddfdddfffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dddddddddddddddddddddddddddddddddddd
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fff555f5ff5f5555f5555f5ff5f5555fff5.
+5ffff5ff55f5f5ffff5ff5f55f5f5ffffff5.
+5ffff5ff5f55f5555f5555f5f55f555ffff5.
+5ffff5ff5ff5ffff5f5ff5f5ff5f5ffffff5.
+5fff555f5ff5f5555f5ff5f5ff5f5555fff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
 `,
 img`
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fffffff5555f5555f5555f5ff5ffffffff5
-5fffffff5ffff5ff5f5ffff5ff5ffffffff5
-5fffffff555ff5555f5555f5555ffffffff5
-5fffffff5ffff5ff5ffff5fff5fffffffff5
-5fffffff5555f5ff5f5555fff5fffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fff5ff5f5555f5555f5fff5f5555f5ffff5
-5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5
-5fff5f55f5ff5f5555f5f5f5f5555f5ffff5
-5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5
-5fff5ff5f5555f5f55f5fff5f5ff5f555ff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-....................................
-555555555555555555555555555555555555
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5fffffff5ff5f5555f5555f555fffffffff5
-5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5
-5fffffff5555f5555f5555f5ff5ffffffff5
-5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5
-5fffffff5ff5f5ff5f5f55f555fffffffff5
-5ffffffffffffffffffffffffffffffffff5
-5ffffffffffffffffffffffffffffffffff5
-555555555555555555555555555555555555
-....................................
-....................................
-....................................
-dddddddddddddddddddddddddddddddddddd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dfffdddfdffdfddddfddddfdffdfddddfffd
-dffffdffddfdfdffffdffdfddfdfdffffffd
-dffffdffdfddfddddfddddfdfddfdddffffd
-dffffdffdffdffffdfdffdfdffdfdffffffd
-dfffdddfdffdfddddfdffdfdffdfddddfffd
-dffffffffffffffffffffffffffffffffffd
-dffffffffffffffffffffffffffffffffffd
-dddddddddddddddddddddddddddddddddddd
-....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fffffff5555f5555f5555f5ff5ffffffff5.
+5fffffff5ffff5ff5f5ffff5ff5ffffffff5.
+5fffffff555ff5555f5555f5555ffffffff5.
+5fffffff5ffff5ff5ffff5fff5fffffffff5.
+5fffffff5555f5ff5f5555fff5fffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fff5ff5f5555f5555f5fff5f5555f5ffff5.
+5fff55f5f5ff5f5ff5f55f55f5ff5f5ffff5.
+5fff5f55f5ff5f5555f5f5f5f5555f5ffff5.
+5fff5ff5f5ff5f5f5ff5fff5f5ff5f5ffff5.
+5fff5ff5f5555f5f55f5fff5f5ff5f555ff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+555555555555555555555555555555555555.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5fffffff5ff5f5555f5555f555fffffffff5.
+5fffffff5ff5f5ff5f5ff5f5ff5ffffffff5.
+5fffffff5555f5555f5555f5ff5ffffffff5.
+5fffffff5ff5f5ff5f5f5ff5ff5ffffffff5.
+5fffffff5ff5f5ff5f5f55f555fffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+5ffffffffffffffffffffffffffffffffff5.
+555555555555555555555555555555555555.
+.....................................
+.....................................
+.....................................
+.....................................
+.dddddddddddddddddddddddddddddddddddd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dfffdddfdffdfddddfddddfdffdfddddfffd
+.dffffdffddfdfdffffdffdfddfdfdffffffd
+.dffffdffdfddfddddfddddfdfddfdddffffd
+.dffffdffdffdffffdfdffdfdffdfdffffffd
+.dfffdddfdffdfddddfdffdfdffdfddddfffd
+.dffffffffffffffffffffffffffffffffffd
+.dffffffffffffffffffffffffffffffffffd
+.dddddddddddddddddddddddddddddddddddd
 `
 ]
 
@@ -705,7 +701,7 @@ bbbbbbbbb233332b..
 `
 ]
 
-const logo = sprites.create(img`
+let title = sprites.create(img`
 ........666666666.6666666666.666666666.66666666.66666666........
 ........666666666.6666666666.666666666.66666666.66666666........
 ........666666666.6666666666.666666666.66666666.66666666........
@@ -751,6 +747,7 @@ b 3 3 b
 . b b . 
 `
 const difficulties = [0.7, 1, 1.5, 2]
+let difficultyIndex = 0
 
 const spdMultiplier = .4
 const bulletSpeed = 3
@@ -765,7 +762,7 @@ let playerVelocity = [0, 0]
 let fireDelay: number
 let lastFire = 0
 
-let spawnRate = 1000
+let spawnRate: number
 let lastEnemySpawn = 0
 
 let activeEnemies:Array<Sprite> = []
@@ -901,6 +898,13 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
     if (state == "playing"){
         playerVelocity[1] = Math.sign(controller.dy())
+    } else if (state == "difficultySelect") {
+        if (difficultyIndex <= 0) {
+            difficultyIndex = 3
+        } else {
+            difficultyIndex--
+        }
+        selectMenu.setImage(difficultySelectFrames[difficultyIndex])
     }
 })
 
@@ -913,7 +917,14 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (state == "playing") {
         playerVelocity[1] = Math.sign(controller.dy())
+    } else if (state == "difficultySelect") {
+        if (difficultyIndex >= 3) {
+            difficultyIndex = 0
+        } else {
+            difficultyIndex++
+        }
     }
+    selectMenu.setImage(difficultySelectFrames[difficultyIndex])
 })
 
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
@@ -924,20 +935,28 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
     if (state == "menu"){
-        logo.setPosition(80, 24)
+        title.destroy()
+        title = textsprite.create("Select your ship", 15)
+        title.setPosition(80, 32)
         selectMenu = sprites.create(classSelectFrames[0])
         selectMenu.setPosition(80, 80)
         state = "classSelect"
     }else if (state == "classSelect"){
-        player = sprites.create(shipSprites[selectIndex], SpriteKind.Player)
-        player.setPosition(24, 64)
         fireDelay = Math.round(1000 / shipStats[selectIndex].frt)
+        selectMenu.destroy()
+        selectMenu = sprites.create(difficultySelectFrames[0])
+        selectMenu.setPosition(80, 80)
+        title.destroy()
+        title = textsprite.create("Select difficulty", 15)
+        title.setPosition(80, 32)
         state = "difficultySelect"
     }else if(state == "difficultySelect"){
         selectMenu.destroy()
-        logo.destroy()
-
-
+        title.destroy()
+        player = sprites.create(shipSprites[selectIndex], SpriteKind.Player)
+        player.setPosition(24, 64)
+        spawnRate = Math.round(1000/difficulties[difficultyIndex])
+        setupWave()
     }else if (state == "playing"){
         if (game.runtime()-lastFire < fireDelay || ammo <= 0) return
         lastFire = game.runtime()
@@ -1015,6 +1034,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, p
     info.changeLifeBy(-sprites.readDataNumber(enemy, "health")/2)
     activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
     enemy.destroy()
+    enemiesToSpawn--
 })
 
 
@@ -1024,8 +1044,8 @@ function setupWave(){
     waveLabel = textsprite.create("WAVE " + wave)
     waveLabel.z = 1
     waveLabel.setPosition(80, 6)
-    enemiesToSpawn = Math.round(Math.clamp(10, 60, 10 + Math.pow(wave, 1.5)))
-    ammo = Math.round(enemiesToSpawn*1.5)
+    enemiesToSpawn = Math.round(Math.clamp(10, 40 + (20 * difficulties[difficultyIndex]), 10 + (Math.pow(wave, 1.5) * difficulties[difficultyIndex])))
+    ammo = Math.round(enemiesToSpawn + enemiesToSpawn*(1/difficulties[difficultyIndex]*.6))
     ammoLabel = textsprite.create(convertToText(ammo), 15, 4)
     ammoLabel.setPosition(6, 116)
     lastEnemySpawn = game.runtime()
