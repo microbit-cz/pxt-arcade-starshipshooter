@@ -30,7 +30,7 @@ class EnemyShip {
 
 const shipStats = [
     new PlayerShip(7, 5, 4, 4),
-    new PlayerShip(2, 4, 5, 7),
+    new PlayerShip(4, 4, 5, 7),
     new PlayerShip(7, 4, 7, 3),
     new PlayerShip(5, 7, 4, 4)
 ]
@@ -716,7 +716,7 @@ let title = sprites.create(img`
 ........555555555.555........555...555.55555555.55555555........
 ........555555555.555........555...555.55555555.55555555........
 ................................................................
-.5555555..55555555.55555555.55555555.555...555.55555555.55555555
+55555555..55555555.55555555.55555555.555...555.55555555.55555555
 555555555.55555555.55555555.55555555.5555..555.55555555.55555555
 555555555.55555555.55555555.55555555.5555..555.55555555.55555555
 555...555.555......555......555......55555.555.555......555.....
@@ -727,9 +727,9 @@ let title = sprites.create(img`
 444...444.444......444......444......444.44444.444......444.....
 444...444.444......444......444......444.44444.444......444.....
 666...666.666......666......666......666..6666.666......666.....
-666666666.666......666......66666666.666..6666.66666666.66666666
-666666666.666......666......66666666.666...666.66666666.66666666
-.6666666..666......666......66666666.666...666.66666666.66666666
+666666666.66666666.666......66666666.666..6666.66666666.66666666
+666666666.66666666.666......66666666.666...666.66666666.66666666
+66666666..66666666.666......66666666.666...666.66666666.66666666
 `)
 let waveLabel: Sprite
 let ammoLabel: Sprite
@@ -923,8 +923,8 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         } else {
             difficultyIndex++
         }
+        selectMenu.setImage(difficultySelectFrames[difficultyIndex])
     }
-    selectMenu.setImage(difficultySelectFrames[difficultyIndex])
 })
 
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
@@ -1045,7 +1045,7 @@ function setupWave(){
     waveLabel.z = 1
     waveLabel.setPosition(80, 6)
     enemiesToSpawn = Math.round(Math.clamp(10, 40 + (20 * difficulties[difficultyIndex]), 10 + (Math.pow(wave, 1.5) * difficulties[difficultyIndex])))
-    ammo = Math.round(enemiesToSpawn + enemiesToSpawn*(1/difficulties[difficultyIndex]*.6))
+    ammo = Math.round(enemiesToSpawn*((10-shipStats[selectIndex].dmg)*0.2) + enemiesToSpawn*(1/difficulties[difficultyIndex]*.6))
     ammoLabel = textsprite.create(convertToText(ammo), 15, 4)
     ammoLabel.setPosition(6, 116)
     lastEnemySpawn = game.runtime()
