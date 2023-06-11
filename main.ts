@@ -29,16 +29,18 @@ class EnemyShip {
 }
 
 const shipStats = [
-    new PlayerShip(7, 5, 4, 4),
-    new PlayerShip(4, 4, 5, 7),
-    new PlayerShip(7, 4, 7, 3),
-    new PlayerShip(5, 7, 4, 4)
+    new PlayerShip(7, 5, 4, 2),
+    new PlayerShip(3, 4, 5, 5),
+    new PlayerShip(7, 4, 7, 1.5),
+    new PlayerShip(5, 7, 4, 2.5)
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 4, 4, .75),
-    new EnemyShip(1, 7, 3, .4),
-    new EnemyShip(1, 5, 3.5, .85)
+    new EnemyShip(1, 6, 4, .75),
+    new EnemyShip(1, 10, 3, .4),
+    new EnemyShip(1, 8, 3.5, .85),
+    new EnemyShip(1, 12, 4, .85),
+    new EnemyShip(2, 20, 2.5, .7)
 ]
 
 const classSelectFrames = [
@@ -687,10 +689,10 @@ img`
 bbbbbbbbb233332b..
 .......bbbb33332b.
 ......bb333333222b
-....bb45533222222b
-....b4452222222b2b
-....b4452222222b2b
-....bb45533222222b
+....bb64433222222b
+....b6642222222b2b
+....b6642222222b2b
+....bb64433222222b
 ......bb333333222b
 .......bbbb33332b.
 bbbbbbbbb233332b..
@@ -698,6 +700,55 @@ bbbbbbbbb233332b..
 ..b333b233332b....
 ...bbb233332b.....
 ......bbbbbb......
+`,
+img`
+.......bbbb........
+......b2222b.......
+......b22322b......
+.....b4b23322b.....
+.....b4b233322b....
+......b22333322b...
+......b233333322b..
+......b233333332b..
+....bbb23333333bbb.
+.bbb664bbbbbbbb645b
+b22664442222222645b
+b22664442222222645b
+.bbb664bbbbbbbb645b
+....bbb23333333bbb.
+......b233333332b..
+......b233333322b..
+......b22333322b...
+.....b4b233322b....
+.....b4b23322b.....
+......b22322b......
+......b2222b.......
+.......bbbb........
+`,
+img`
+...................bbb..
+.................bb22b..
+................b2222b..
+.............bbb22322b..
+...........442222322b...
+.....bbb.6644333332b....
+...bb222664443333322bb..
+..b2223333333333333222b.
+.b223333332222222222222b
+b2222222222bbbbbbb22222b
+bbbbbbbbbbb6644455bbbbb.
+.....b444b66444445bb....
+bbbbbbbbbbb6644455bbbbb.
+b2222222222bbbbbbb22222b
+.b223333332222222222222b
+..b2223333333333333222b.
+...bb222664443333322bb..
+.....bbb.6644333332b....
+...........442222322b...
+.............bbb22322b..
+................b2222b..
+.................bb22b..
+...................bbb..
 `
 ]
 
@@ -732,7 +783,6 @@ let title = sprites.create(img`
 66666666..66666666.666......66666666.666...666.66666666.66666666
 `)
 let waveLabel: Sprite
-let ammoLabel: Sprite
 
 const bulletImg = img`
 . 7 7 . 
@@ -769,7 +819,6 @@ let activeEnemies:Array<Sprite> = []
 let wave = 0
 let enemiesToSpawn = 0
 
-let ammo: number
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -958,14 +1007,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         spawnRate = Math.round(1000/difficulties[difficultyIndex])
         setupWave()
     }else if (state == "playing"){
-        if (game.runtime()-lastFire < fireDelay || ammo <= 0) return
+        if (game.runtime()-lastFire < fireDelay) return
         lastFire = game.runtime()
         let projectile = sprites.createProjectile(bulletImg, 150, 0, SpriteKind.Projectile)
         projectile.setPosition(player.x + 12, player.y)
-        ammo--
-        ammoLabel.destroy()
-        ammoLabel = textsprite.create(convertToText(ammo), 15, 4)
-        ammoLabel.setPosition(6, 116)
     }
 })
 
@@ -1045,9 +1090,6 @@ function setupWave(){
     waveLabel.z = 1
     waveLabel.setPosition(80, 6)
     enemiesToSpawn = Math.round(Math.clamp(10, 40 + (20 * difficulties[difficultyIndex]), 10 + (Math.pow(wave, 1.5) * difficulties[difficultyIndex])))
-    ammo = Math.round(enemiesToSpawn*((10-shipStats[selectIndex].dmg)*0.2) + enemiesToSpawn*(1/difficulties[difficultyIndex]*.6))
-    ammoLabel = textsprite.create(convertToText(ammo), 15, 4)
-    ammoLabel.setPosition(6, 116)
     lastEnemySpawn = game.runtime()
     state = "playing"
 }
@@ -1057,7 +1099,6 @@ function endWave(){
     for (let v of activeEnemies) v.destroy()
     activeEnemies = []
     waveLabel.destroy()
-    ammoLabel.destroy()
     playerVelocity = [0, 0]
     basic.pause(5000)
     setupWave()
@@ -1083,8 +1124,8 @@ function updateEnemies() {
         if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){
             enemyDir[0] = -1
         }
-        if (enemy.y <= 10) sprites.setDataNumber(enemy, "moveDirY", 1)
-        else if (enemy.y >= 110) sprites.setDataNumber(enemy, "moveDirY", -1)
+        if (enemy.y <= enemy.height/2) sprites.setDataNumber(enemy, "moveDirY", 1)
+        else if (enemy.y >= 120 - enemy.height / 2) sprites.setDataNumber(enemy, "moveDirY", -1)
         enemyDir[1] = sprites.readDataNumber(enemy, "moveDirY")
         enemyDir = normalize(enemyDir[0], enemyDir[1])
         enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
