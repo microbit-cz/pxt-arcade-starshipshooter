@@ -20,11 +20,13 @@ class EnemyShip {
     hp: number;
     spd: number;
     frt: number;
-    constructor(dmg: number, hp: number, spd: number, frt: number) {
+    startWave: number;
+    constructor(dmg: number, hp: number, spd: number, frt: number, startWave: number){
         this.dmg = dmg;
         this.hp = hp;
         this.spd = spd;
         this.frt = frt;
+        this.startWave = startWave
     }
 }
 
@@ -36,11 +38,11 @@ const shipStats = [
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 6, 4, .75),
-    new EnemyShip(1, 10, 3, .4),
-    new EnemyShip(1, 8, 3.5, .85),
-    new EnemyShip(1, 12, 4, .85),
-    new EnemyShip(2, 20, 2.5, .7)
+    new EnemyShip(1, 4, 5, .75, 2),
+    new EnemyShip(1, 8, 3, .4, 4),
+    new EnemyShip(1, 6, 3.5, .85, 1),
+    new EnemyShip(1, 10, 4, .85, 7),
+    new EnemyShip(2, 24, 2.5, .7, 10)
 ]
 
 const classSelectFrames = [
@@ -819,6 +821,7 @@ let activeEnemies:Array<Sprite> = []
 let wave = 0
 let enemiesToSpawn = 0
 
+let availableEnemies:Array<number> = []
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -942,7 +945,6 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 `)
-
 
 controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
     if (state == "playing"){
@@ -1071,8 +1073,8 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
 
 sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet: Sprite, plr: Sprite) {
     if (state != "playing") return
+    info.changeLifeBy(-sprites.readDataNumber(bullet, "damage"))
     bullet.destroy()
-    info.changeLifeBy(-1)
 })
 
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, plr: Sprite){
@@ -1091,6 +1093,10 @@ function setupWave(){
     waveLabel.setPosition(80, 6)
     enemiesToSpawn = Math.round(Math.clamp(10, 40 + (20 * difficulties[difficultyIndex]), 10 + (Math.pow(wave, 1.5) * difficulties[difficultyIndex])))
     lastEnemySpawn = game.runtime()
+    availableEnemies = []
+    for (let i = 0; i < enemyStats.length; i++){
+        if (enemyStats[i].startWave <= wave) availableEnemies.push(i)
+    }
     state = "playing"
 }
 
@@ -1106,7 +1112,7 @@ function endWave(){
 
 
 function spawnEnemy() {
-    let enemyIndex = randint(0, enemyStats.length-1)
+    let enemyIndex = Math.pickRandom(availableEnemies)
     let enemy = sprites.create(enemySprites[enemyIndex], SpriteKind.Enemy)
     enemy.setPosition(160, randint(12, 108))
     sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
@@ -1121,7 +1127,7 @@ function updateEnemies() {
         let i = activeEnemies.indexOf(enemy)
         let enemyIndex = sprites.readDataNumber(enemy, "index")
         let enemyDir = [0, 0]
-        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 80 + 20*i)){
+        if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 5 + activeEnemies[i-1].x + activeEnemies[i-1].width/2 + enemy.width/2)){
             enemyDir[0] = -1
         }
         if (enemy.y <= enemy.height/2) sprites.setDataNumber(enemy, "moveDirY", 1)
@@ -1131,8 +1137,9 @@ function updateEnemies() {
         enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
         if (game.runtime() - sprites.readDataNumber(enemy, "lastShot") > (1000/enemyStats[enemyIndex].frt)){
             sprites.setDataNumber(enemy, "lastShot", game.runtime())
-            let bullet = sprites.createProjectile(enemyBulletImg, -70, 0, SpriteKind.EnemyProjectile)
+            let bullet = sprites.createProjectile(enemyBulletImg, -30-40*difficulties[difficultyIndex], 0, SpriteKind.EnemyProjectile)
             bullet.setPosition(enemy.x - 12, enemy.y)
+            sprites.setDataNumber(bullet, "damage", enemyStats[enemyIndex].dmg)
         }
     }
 }

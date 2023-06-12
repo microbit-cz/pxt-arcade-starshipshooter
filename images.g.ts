@@ -95,25 +95,6 @@ namespace myImages {
 .........5669.......
 ..........5555......
 `;
-            case "image12":
-            case "enemy":return img`
-. . . . . . . . b b . . 
-. . . . . . . b 2 b . . 
-. . . . . . b 2 3 b . . 
-. . . . . . b b b b . . 
-. . . . b b 3 3 3 b . . 
-. . b b 2 3 3 3 b b b b 
-. b 2 b b 2 3 b 6 4 5 b 
-b 3 b 6 4 b 2 b 6 4 5 b 
-b 3 b 6 4 b 2 b 6 4 5 b 
-. b 2 b b 2 3 b 6 4 5 b 
-. . b b 2 3 3 3 b b b b 
-. . . . b b 3 3 3 b . . 
-. . . . . . b b b b . . 
-. . . . . . b 2 3 b . . 
-. . . . . . . b 2 b . . 
-. . . . . . . . b b . . 
-`;
             case "image13":
             case "enemy2":return img`
 ..........bbbb......
@@ -884,6 +865,49 @@ b2222222222bbbbbbb22222b
 ................b2222b..
 .................bb22b..
 ...................bbb..
+`;
+            case "image12":
+            case "enemy1":return img`
+. . . . . . . . b b . . 
+. . . . . . . b 2 b . . 
+. . . . . . b 2 3 b . . 
+. . . . . . b b b b . . 
+. . . . b b 3 3 3 b . . 
+. . b b 2 3 3 3 b b b b 
+. b 2 b b 2 3 b 6 4 5 b 
+b 3 b 6 4 b 2 b 6 4 5 b 
+b 3 b 6 4 b 2 b 6 4 5 b 
+. b 2 b b 2 3 b 6 4 5 b 
+. . b b 2 3 3 3 b b b b 
+. . . . b b 3 3 3 b . . 
+. . . . . . b b b b . . 
+. . . . . . b 2 3 b . . 
+. . . . . . . b 2 b . . 
+. . . . . . . . b b . . 
+`;
+            case "image23":
+            case "healDrop":return img`
+b b b b b b b b b 
+b 3 3 3 3 3 3 3 b 
+b 3 3 b 3 b 3 3 b 
+b 3 b b b b b 3 b 
+b 3 b b b b b 3 b 
+b 3 3 b b b 3 3 b 
+b 3 3 3 b 3 3 3 b 
+b 3 3 3 3 3 3 3 b 
+b b b b b b b b b 
+`;
+            case "image22":
+            case "moneyDrop":return img`
+4 4 4 4 4 4 4 4 4 
+4 6 6 6 4 6 6 6 4 
+4 6 6 4 4 4 6 6 4 
+4 6 6 4 6 6 6 6 4 
+4 6 6 4 4 4 6 6 4 
+4 6 6 6 6 4 6 6 4 
+4 6 6 4 4 4 6 6 4 
+4 6 6 6 4 6 6 6 4 
+4 4 4 4 4 4 4 4 4 
 `;
         }
         return null;

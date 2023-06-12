@@ -19,11 +19,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "jugg"
     },
-    "image12": {
-        "data": "hwQMABAAAAAAAACwCwAAAAAAADuzAAAAAACwsisLAAAAALBrtgsAAAAAK0u0sgAAAAA7siuzAAAAuzMjMjO7ALCyM7u7MysLK7OzZmY7O7K7u7tERLu7uwAAsFVVCwAAAACwu7sLAAA=",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "enemy"
-    },
     "image13": {
         "data": "hwQUABQAAAAAAAAAsAsAAAAAAAAAAAAAK7IAAAAAAAAAAAAAK7IAAAAAAAAAAACwMiMLAAAAAAAAAACwMiMLAAAAAAAAALu7siu7uwAAAAAAsEu7a7a7tAsAAAAAsLS7S7S7SwsAAAAAsCuyS7QrsgsAAACwKyKzS7Q7IrILAAArIjOzsis7MyKyAAArMjOzMiM7MyOyAAArMjOzMiM7MyOyAAArIjOzMiM7MyKyAACwKyKzMiM7IrILAAAAsCuyMiMrsgsAAAAAALC7IiK7CwAAAAAAAAC7u7u7AAAAAAAAAAAAW7UAAAAAAAAAAAAAu7sAAAAAAAA=",
         "mimeType": "image/x-mkcd-f4",
@@ -103,6 +98,21 @@
         "data": "hwQYABcAAAAAAAAAsAu7AAAAAAAAAAAAKwsrCwAAAAAAAACwIgsrsgAAAAAAAAArIgsrIgsAAAAAAAArIwsrIwsAAAAAALAiI7srI7IAAAAAALAyI0srM7IAAAAAALAyI0srM7IAAAAAAAA2I0srMwYAAAAAAGA2I7srM2YAAAAAAGA0ImsrMmQAAAAAAEQ0sma2MkQEAAAAAEQ0ska2MkQEAAAAsDIzskS0MjOyAAAAsDIzskS0MjOyAAAAsDIzskS0MjOyAAAAKzIzskW1MjMiCwCwIjMzslW1MjMjsgCwMiIyIrsrMiIysgArIrIiIrsrIrIiIgsrIgsrIgsrIgsrIgu7uwArIgsrIguwuwsAAACwIgsrsgAAAAAAAAAAuwCwCwAAAAA=",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "enemy5"
+    },
+    "image12": {
+        "data": "hwQMABAAAAAAAACwCwAAAAAAADuzAAAAAACwsisLAAAAALBrtgsAAAAAK0u0sgAAAAA7siuzAAAAuzMjMjO7ALCyM7u7MysLK7OzZmY7O7K7u7tERLu7uwAAsFVVCwAAAACwu7sLAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "enemy1"
+    },
+    "image23": {
+        "data": "hwQJAAkAAAC7u7u7CwAAADszMzMLAAAAO7M7MwsAAAA7u7szCwAAADuzuzsLAAAAO7u7MwsAAAA7szszCwAAADszMzMLAAAAu7u7uwsAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "healDrop"
+    },
+    "image22": {
+        "data": "hwQJAAkAAABEREREBAAAAGRmZmYEAAAAZGZmZgQAAABkRGRkBAAAAERkZEQEAAAAZGREZAQAAABkZmZmBAAAAGRmZmYEAAAARERERAQAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "moneyDrop"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
