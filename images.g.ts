@@ -897,17 +897,99 @@ b 3 3 3 b 3 3 3 b
 b b 3 3 3 3 3 b b 
 . b b b b b b b . 
 `;
+            case "image24":
+            case "dmgBoostDrop":return img`
+. 4 4 4 4 4 4 4 . 
+4 4 6 6 6 6 6 4 4 
+4 6 4 4 6 4 4 6 4 
+4 6 4 6 6 6 4 6 4 
+4 6 6 6 4 6 6 6 4 
+4 6 4 6 6 6 4 6 4 
+4 6 4 4 6 4 4 6 4 
+4 4 6 6 6 6 6 4 4 
+. 4 4 4 4 4 4 4 . 
+`;
             case "image22":
             case "moneyDrop":return img`
-. 4 4 4 4 4 4 4 . 
-4 4 6 6 4 6 6 4 4 
-4 6 6 4 4 4 6 6 4 
-4 6 6 4 6 6 6 6 4 
-4 6 6 4 4 4 6 6 4 
-4 6 6 6 6 4 6 6 4 
-4 6 6 4 4 4 6 6 4 
-4 4 6 6 4 6 6 4 4 
-. 4 4 4 4 4 4 4 . 
+. f f f f f f f . 
+f f d d f d d f f 
+f d d f f f d d f 
+f d d f d d d d f 
+f d d f f f d d f 
+f d d d d f d d f 
+f d d f f f d d f 
+f f d d f d d f f 
+. f f f f f f f . 
+`;
+            case "image25":
+            case "healthUpgrade":return img`
+55555555555555555555555555555555
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffbbffffffbbffffffffff5
+5fffffffffbbbbffffbbbbfffffffff5
+5ffffffffbbbbbbffbbbbbbffffffff5
+5fffffffbbbbbbbbbbbbbbbbfffffff5
+5ffffffbbbbbbbbbbbbbbbbbbffffff5
+5fffffbbbbbbbbbbbbbbbbbbbbfffff5
+5fffffb33bbbbbbbbbbbbbbbbbfffff5
+5fffffb33bbbbbbbbbbbbbbbbbfffff5
+5fffffb33bbbbbbbbbbbbbbbbbfffff5
+5fffffb333bbbbbbbbbbbbbbbbfffff5
+5fffffbb333bbbbbbbbbbbbbbbfffff5
+5ffffffbb333bbbbbbbbbbbbbffffff5
+5fffffffbb333bbbbbbbbbbbfffffff5
+5ffffffffbb333bbbbbbbbbffffffff5
+5fffffffffbb333bbbbbbbfffffffff5
+5ffffffffffbb333bbbbbffffffffff5
+5fffffffffffbb333bbbfffffffffff5
+5ffffffffffffbb33bbffffffffffff5
+5fffffffffffffbbbbfffffffffffff5
+5ffffffffffffffbbffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+55555555555555555555555555555555
+`;
+            case "image26":
+            case "speedUpgrade":return img`
+55555555555555555555555555555555
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffaaaaaaafffffffffffffffffffff5
+5ffffffff55ffffffffffffffffffff5
+5ffffffff565fffffffffffffffffff5
+5ffffffff56699fffffffffffffffff5
+5fffaaaaf9446699fffffffffffffff5
+5fffffffff9444669ffffffffffffff5
+5ffffffffff9444469fffffffffffff5
+5fffffaaaaff9444465fff9999fffff5
+5fffffffbbbf55444555fffaaa9ffff5
+5ffffffb222b5455566655777755fff5
+5fffffb2344954444444478888765ff5
+5fffffb2344954444444478888765ff5
+5ffffffb222b5455566655777755fff5
+5fffffffbbbf55444555fffaaa9ffff5
+5fffffaaaaff9444465fff9999fffff5
+5ffffffffff9444469fffffffffffff5
+5fffffffff9444669ffffffffffffff5
+5fffaaaaf9446699fffffffffffffff5
+5ffffffff56699fffffffffffffffff5
+5ffffffff565fffffffffffffffffff5
+5ffffffff55ffffffffffffffffffff5
+5ffaaaaaaafffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+5ffffffffffffffffffffffffffffff5
+55555555555555555555555555555555
 `;
         }
         return null;

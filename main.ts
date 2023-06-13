@@ -32,7 +32,7 @@ class EnemyShip {
 
 const shipStats = [
     new PlayerShip(7, 5, 4, 2),
-    new PlayerShip(3, 4, 5, 5),
+    new PlayerShip(3, 4, 5, 6),
     new PlayerShip(7, 4, 7, 1.5),
     new PlayerShip(5, 7, 4, 2.5)
 ]
@@ -767,14 +767,25 @@ b b 3 3 3 3 3 b b
 . b b b b b b b . 
 `,
 img`
+. f f f f f f f . 
+f f d d f d d f f 
+f d d f f f d d f 
+f d d f d d d d f 
+f d d f f f d d f 
+f d d d d f d d f 
+f d d f f f d d f 
+f f d d f d d f f 
+. f f f f f f f . 
+`,
+img`
 . 4 4 4 4 4 4 4 . 
-4 4 6 6 4 6 6 4 4 
-4 6 6 4 4 4 6 6 4 
-4 6 6 4 6 6 6 6 4 
-4 6 6 4 4 4 6 6 4 
-4 6 6 6 6 4 6 6 4 
-4 6 6 4 4 4 6 6 4 
-4 4 6 6 4 6 6 4 4 
+4 4 6 6 6 6 6 4 4 
+4 6 4 4 6 4 4 6 4 
+4 6 4 6 6 6 4 6 4 
+4 6 6 6 4 6 6 6 4 
+4 6 4 6 6 6 4 6 4 
+4 6 4 4 6 4 4 6 4 
+4 4 6 6 6 6 6 4 4 
 . 4 4 4 4 4 4 4 . 
 `
 ]
@@ -842,11 +853,14 @@ let lastFire = 0
 let spawnRate: number
 let lastEnemySpawn = 0
 
+let activeProjectiles:Array<Sprite> = []
 let activeEnemies:Array<Sprite> = []
 let wave = 0
 let enemiesToSpawn = 0
 
 let availableEnemies:Array<number> = []
+
+let dmgBoost = 0
 
 let money = 0
 
@@ -1040,6 +1054,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         lastFire = game.runtime()
         let projectile = sprites.createProjectile(bulletImg, 150, 0, SpriteKind.Projectile)
         projectile.setPosition(player.x + 12, player.y)
+        activeProjectiles.push(projectile)
     }
 })
 
@@ -1085,7 +1100,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     if (state != "playing") return
     let enemyHealth = sprites.readDataNumber(enemy, "health")
     bullet.destroy()
-    enemyHealth -= shipStats[selectIndex].dmg
+    enemyHealth -= (shipStats[selectIndex].dmg + dmgBoost)
     if (enemyHealth <= 0){
         activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
         enemiesToSpawn--
@@ -1097,6 +1112,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
                 let drop = sprites.createProjectile(dropImages[dropIndex], -10, 0, SpriteKind.Food)
                 drop.setPosition(x, y)
                 sprites.setDataNumber(drop, "dropIndex", dropIndex)
+                activeProjectiles.push(drop)
             }
         }else{
             endWave()
@@ -1128,6 +1144,8 @@ sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr
         info.changeLifeBy(1)
     }else if (dropIndex == 1){
         money += Math.round(randint(4 * (1 / difficulties[difficultyIndex]), 8 * (1 / difficulties[difficultyIndex])))
+    }else if (dropIndex == 2){
+        dmgBoost++
     }
     drop.destroy()
 })
@@ -1151,7 +1169,9 @@ function setupWave(){
 function endWave(){
     state = "shop"
     for (let v of activeEnemies) v.destroy()
+    for (let v of activeProjectiles) v.destroy()
     activeEnemies = []
+    activeProjectiles = []
     waveLabel.destroy()
     playerVelocity = [0, 0]
     basic.pause(5000)
@@ -1188,6 +1208,7 @@ function updateEnemies() {
             let bullet = sprites.createProjectile(enemyBulletImg, -50-20*difficulties[difficultyIndex], 0, SpriteKind.EnemyProjectile)
             bullet.setPosition(enemy.x - 12, enemy.y)
             sprites.setDataNumber(bullet, "damage", enemyStats[enemyIndex].dmg)
+            activeProjectiles.push(bullet)
         }
     }
 }

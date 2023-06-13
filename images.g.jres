@@ -109,10 +109,25 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "healDrop"
     },
+    "image24": {
+        "data": "hwQJAAkAAABAREREAAAAAERmZkYEAAAAZERGZAQAAABkZGZkBAAAAGRmZGYEAAAAZGRmZAQAAABkREZkBAAAAERmZkYEAAAAQERERAAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "dmgBoostDrop"
+    },
     "image22": {
-        "data": "hwQJAAkAAABAREREAAAAAERmZkYEAAAAZGZmZgQAAABkRGRkBAAAAERkZEQEAAAAZGREZAQAAABkZmZmBAAAAERmZkYEAAAAQERERAAAAAA=",
+        "data": "hwQJAAkAAADw////AAAAAP/d3f0PAAAA393d3Q8AAADf/9/fDwAAAP/f3/8PAAAA39//3w8AAADf3d3dDwAAAP/d3f0PAAAA8P///wAAAAA=",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "moneyDrop"
+    },
+    "image25": {
+        "data": "hwQgACAAAABVVVVVVVVVVVVVVVVVVVVV9f//////////////////X/X//////////////////1/1//////////////////9f9f//////////////////X/X//////////////////1/1/////7+7u/v///////9f9f////+7MzO7////////X/X///+/uzMzs/v//////1/1////u7u7OzO7//////9f9f//v7u7u7szs/v/////X/X//7u7u7u7OzO7/////1/1//+7u7u7u7szs/v///9f9f//v7u7u7u7OzO7////X/X///+7u7u7u7szs/v//1/1////v7u7u7u7OzO7//9f9f///7+7u7u7u7szu///X/X///+7u7u7u7u7u/v//1/1//+/u7u7u7u7u7v///9f9f//u7u7u7u7u7v7////X/X//7u7u7u7u7u7/////1/1//+/u7u7u7u7+/////9f9f///7u7u7u7u///////X/X///+/u7u7u/v//////1/1/////7u7u7v///////9f9f////+/u7v7////////X/X//////////////////1/1//////////////////9f9f//////////////////X/X//////////////////1/1//////////////////9fVVVVVVVVVVVVVVVVVVVVVQ==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "healthUpgrade"
+    },
+    "image26": {
+        "data": "hwQgACAAAABVVVVVVVVVVVVVVVVVVVVV9f//////////////////X/X//////////////////1/1/6//////////////+v9f9f+v/6/////////6//r/X/X/r/+v////////+v/6/1/1/6//r//6v/uv//r/+v9f9f+v/6//+iuyr//6//r/X/X/r////7oyI6v////6/1/1/69Vlf+6QiSr/1lV+v9f9f//ZUb5v0Ik+59kVv//X/X//19GlP+buf9JZPX//1/1////aURZVVWVRJb///9f9f///2lEVERERUSW////X/X///+fRkRFVERk+f///1/1////n0ZERVREZPn///9f9f////9pREVURJb/////X/X/////n1ZGZGX5/////1/1//////9VRmRV//////9f9f//////X0Zk9f//////X/X///////9FVP///////1/1////////dVf///////9f9f//////+Yd4n///////X/X//////6mHeJr//////1/1//////+ph3ia//////9f9f//////qYd4mv//////X/X//////591V/n//////1/1////////ZVb///////9f9f///////1/1////////X/X//////////////////1/1//////////////////9fVVVVVVVVVVVVVVVVVVVVVQ==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "speedUpgrade"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
