@@ -887,27 +887,27 @@ b 3 b 6 4 b 2 b 6 4 5 b
 `;
             case "image23":
             case "healDrop":return img`
-b b b b b b b b b 
-b 3 3 3 3 3 3 3 b 
+. b b b b b b b . 
+b b 3 3 3 3 3 b b 
 b 3 3 b 3 b 3 3 b 
 b 3 b b b b b 3 b 
 b 3 b b b b b 3 b 
 b 3 3 b b b 3 3 b 
 b 3 3 3 b 3 3 3 b 
-b 3 3 3 3 3 3 3 b 
-b b b b b b b b b 
+b b 3 3 3 3 3 b b 
+. b b b b b b b . 
 `;
             case "image22":
             case "moneyDrop":return img`
-4 4 4 4 4 4 4 4 4 
-4 6 6 6 4 6 6 6 4 
+. 4 4 4 4 4 4 4 . 
+4 4 6 6 4 6 6 4 4 
 4 6 6 4 4 4 6 6 4 
 4 6 6 4 6 6 6 6 4 
 4 6 6 4 4 4 6 6 4 
 4 6 6 6 6 4 6 6 4 
 4 6 6 4 4 4 6 6 4 
-4 6 6 6 4 6 6 6 4 
-4 4 4 4 4 4 4 4 4 
+4 4 6 6 4 6 6 4 4 
+. 4 4 4 4 4 4 4 . 
 `;
         }
         return null;

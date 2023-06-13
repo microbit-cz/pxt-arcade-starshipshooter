@@ -105,12 +105,12 @@
         "displayName": "enemy1"
     },
     "image23": {
-        "data": "hwQJAAkAAAC7u7u7CwAAADszMzMLAAAAO7M7MwsAAAA7u7szCwAAADuzuzsLAAAAO7u7MwsAAAA7szszCwAAADszMzMLAAAAu7u7uwsAAAA=",
+        "data": "hwQJAAkAAACwu7u7AAAAALszM7MLAAAAO7M7MwsAAAA7u7szCwAAADuzuzsLAAAAO7u7MwsAAAA7szszCwAAALszM7MLAAAAsLu7uwAAAAA=",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "healDrop"
     },
     "image22": {
-        "data": "hwQJAAkAAABEREREBAAAAGRmZmYEAAAAZGZmZgQAAABkRGRkBAAAAERkZEQEAAAAZGREZAQAAABkZmZmBAAAAGRmZmYEAAAARERERAQAAAA=",
+        "data": "hwQJAAkAAABAREREAAAAAERmZkYEAAAAZGZmZgQAAABkRGRkBAAAAERkZEQEAAAAZGREZAQAAABkZmZmBAAAAERmZkYEAAAAQERERAAAAAA=",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "moneyDrop"
     },
