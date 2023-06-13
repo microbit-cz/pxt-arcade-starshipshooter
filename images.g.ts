@@ -897,30 +897,6 @@ b 3 3 3 b 3 3 3 b
 b b 3 3 3 3 3 b b 
 . b b b b b b b . 
 `;
-            case "image24":
-            case "dmgBoostDrop":return img`
-. 4 4 4 4 4 4 4 . 
-4 4 6 6 6 6 6 4 4 
-4 6 4 4 6 4 4 6 4 
-4 6 4 6 6 6 4 6 4 
-4 6 6 6 4 6 6 6 4 
-4 6 4 6 6 6 4 6 4 
-4 6 4 4 6 4 4 6 4 
-4 4 6 6 6 6 6 4 4 
-. 4 4 4 4 4 4 4 . 
-`;
-            case "image22":
-            case "moneyDrop":return img`
-. f f f f f f f . 
-f f d d f d d f f 
-f d d f f f d d f 
-f d d f d d d d f 
-f d d f f f d d f 
-f d d d d f d d f 
-f d d f f f d d f 
-f f d d f d d f f 
-. f f f f f f f . 
-`;
             case "image25":
             case "healthUpgrade":return img`
 55555555555555555555555555555555
@@ -990,6 +966,30 @@ f f d d f d d f f
 5ffffffffffffffffffffffffffffff5
 5ffffffffffffffffffffffffffffff5
 55555555555555555555555555555555
+`;
+            case "image22":
+            case "moneyDrop":return img`
+. 6 6 6 6 6 6 6 . 
+6 6 5 5 6 5 5 6 6 
+6 5 5 6 6 6 5 5 6 
+6 5 5 6 5 5 5 5 6 
+6 5 5 6 6 6 5 5 6 
+6 5 5 5 5 6 5 5 6 
+6 5 5 6 6 6 5 5 6 
+6 6 5 5 6 5 5 6 6 
+. 6 6 6 6 6 6 6 . 
+`;
+            case "image24":
+            case "dmgBoostDrop":return img`
+. 4 4 4 4 4 4 4 . 
+4 4 6 6 6 6 6 4 4 
+4 6 4 4 6 4 4 6 4 
+4 6 4 6 6 6 4 6 4 
+4 6 6 6 4 6 6 6 4 
+4 6 4 6 6 6 4 6 4 
+4 6 4 4 6 4 4 6 4 
+4 4 6 6 6 6 6 4 4 
+. 4 4 4 4 4 4 4 . 
 `;
         }
         return null;

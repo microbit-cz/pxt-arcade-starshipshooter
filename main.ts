@@ -767,15 +767,15 @@ b b 3 3 3 3 3 b b
 . b b b b b b b . 
 `,
 img`
-. f f f f f f f . 
-f f d d f d d f f 
-f d d f f f d d f 
-f d d f d d d d f 
-f d d f f f d d f 
-f d d d d f d d f 
-f d d f f f d d f 
-f f d d f d d f f 
-. f f f f f f f . 
+. 6 6 6 6 6 6 6 . 
+6 6 5 5 6 5 5 6 6 
+6 5 5 6 6 6 5 5 6 
+6 5 5 6 5 5 5 5 6 
+6 5 5 6 6 6 5 5 6 
+6 5 5 5 5 6 5 5 6 
+6 5 5 6 6 6 5 5 6 
+6 6 5 5 6 5 5 6 6 
+. 6 6 6 6 6 6 6 . 
 `,
 img`
 . 4 4 4 4 4 4 4 . 
@@ -863,6 +863,7 @@ let availableEnemies:Array<number> = []
 let dmgBoost = 0
 
 let money = 0
+let moneyLabel: Sprite
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -1143,7 +1144,7 @@ sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr
     if (dropIndex == 0){
         info.changeLifeBy(1)
     }else if (dropIndex == 1){
-        money += Math.round(randint(4 * (1 / difficulties[difficultyIndex]), 8 * (1 / difficulties[difficultyIndex])))
+        money += randint(4, 8)
     }else if (dropIndex == 2){
         dmgBoost++
     }
@@ -1168,13 +1169,18 @@ function setupWave(){
 
 function endWave(){
     state = "shop"
+    money += wave*5
     for (let v of activeEnemies) v.destroy()
     for (let v of activeProjectiles) v.destroy()
     activeEnemies = []
     activeProjectiles = []
     waveLabel.destroy()
     playerVelocity = [0, 0]
+    moneyLabel = textsprite.create(money + " $", 15, 4)
+    moneyLabel.setPosition(80, 5)
+    dmgBoost = 0
     basic.pause(5000)
+    moneyLabel.destroy()
     setupWave()
 }
 
