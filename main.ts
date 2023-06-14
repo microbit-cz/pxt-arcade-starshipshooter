@@ -31,18 +31,18 @@ class EnemyShip {
 }
 
 const shipStats = [
-    new PlayerShip(7, 5, 4, 2),
-    new PlayerShip(3, 4, 5, 6),
-    new PlayerShip(7, 4, 7, 1.5),
-    new PlayerShip(5, 7, 4, 2.5)
+    new PlayerShip(7, 5, 1.6, 2),
+    new PlayerShip(3, 4, 2, 6),
+    new PlayerShip(7, 4, 2.8, 1.5),
+    new PlayerShip(5, 7, 1.6, 2.5)
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 4, 5, .75, 2),
-    new EnemyShip(1, 8, 3, .4, 4),
-    new EnemyShip(1, 6, 3.5, .85, 1),
-    new EnemyShip(1, 10, 4, .85, 7),
-    new EnemyShip(2, 24, 2.5, .7, 10)
+    new EnemyShip(1, 4, 2, .75, 2),
+    new EnemyShip(1, 8, 1.2, .4, 4),
+    new EnemyShip(1, 6, 1.4, .85, 1),
+    new EnemyShip(1, 10, 1.6, .85, 7),
+    new EnemyShip(2, 24, 1, .7, 10)
 ]
 
 const classSelectFrames = [
@@ -767,17 +767,6 @@ b b 3 3 3 3 3 b b
 . b b b b b b b . 
 `,
 img`
-. 6 6 6 6 6 6 6 . 
-6 6 5 5 6 5 5 6 6 
-6 5 5 6 6 6 5 5 6 
-6 5 5 6 5 5 5 5 6 
-6 5 5 6 6 6 5 5 6 
-6 5 5 5 5 6 5 5 6 
-6 5 5 6 6 6 5 5 6 
-6 6 5 5 6 5 5 6 6 
-. 6 6 6 6 6 6 6 . 
-`,
-img`
 . 4 4 4 4 4 4 4 . 
 4 4 6 6 6 6 6 4 4 
 4 6 4 4 6 4 4 6 4 
@@ -787,6 +776,28 @@ img`
 4 6 4 4 6 4 4 6 4 
 4 4 6 6 6 6 6 4 4 
 . 4 4 4 4 4 4 4 . 
+`,
+img`
+. 9 9 9 9 9 9 9 . 
+9 9 a a a a a 9 9 
+9 a 9 9 9 9 9 a 9 
+9 a 9 9 9 a 9 a 9 
+9 a 9 9 9 a 9 a 9 
+9 a 9 9 a 9 9 a 9 
+9 a a 9 9 9 a a 9 
+9 9 a a a a a 9 9 
+. 9 9 9 9 9 9 9 . 
+`,
+img`
+. 7 7 7 7 7 7 7 . 
+7 7 8 8 8 8 8 7 7 
+7 8 8 8 8 8 8 8 7 
+7 8 7 8 8 7 8 8 7 
+7 8 8 7 8 8 7 8 7 
+7 8 7 8 8 7 8 8 7 
+7 8 8 8 8 8 8 8 7 
+7 7 8 8 8 8 8 7 7 
+. 7 7 7 7 7 7 7 . 
 `
 ]
 
@@ -837,7 +848,6 @@ b 3 3 b
 const difficulties = [0.7, 1, 1.5, 2]
 let difficultyIndex = 0
 
-const spdMultiplier = .4
 const bulletSpeed = 3
 
 let selectMenu: Sprite
@@ -860,10 +870,11 @@ let enemiesToSpawn = 0
 
 let availableEnemies:Array<number> = []
 
-let dmgBoost = 0
-
-let money = 0
-let moneyLabel: Sprite
+let upgrades = {
+    atc: 0,
+    hp: 0,
+    spd: 0,
+}
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -1101,14 +1112,14 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     if (state != "playing") return
     let enemyHealth = sprites.readDataNumber(enemy, "health")
     bullet.destroy()
-    enemyHealth -= (shipStats[selectIndex].dmg + dmgBoost)
+    enemyHealth -= (shipStats[selectIndex].dmg + upgrades.atc)
     if (enemyHealth <= 0){
         activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
         enemiesToSpawn--
         let [x,y] = [enemy.x, enemy.y]
         enemy.destroy()
         if (enemiesToSpawn > 0){
-            if (randint(0, 9) == 9) {
+            if (randint(1, 8) == 8) {
                 let dropIndex = randint(0, dropImages.length-1)
                 let drop = sprites.createProjectile(dropImages[dropIndex], -10, 0, SpriteKind.Food)
                 drop.setPosition(x, y)
@@ -1142,18 +1153,20 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, p
 sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr: Sprite){
     let dropIndex = sprites.readDataNumber(drop, "dropIndex")
     if (dropIndex == 0){
-        info.changeLifeBy(1)
+        info.changeLifeBy(Math.clamp(0, shipStats[selectIndex].hp + upgrades.hp, 3))
     }else if (dropIndex == 1){
-        money += randint(4, 8)
-    }else if (dropIndex == 2){
-        dmgBoost++
+        upgrades.atc++
+    }else if (dropIndex == 2) {
+        upgrades.hp++
+    }else if (dropIndex == 2) {
+        upgrades.hp++
     }
     drop.destroy()
 })
 
 
 function setupWave(){
-    info.setLife(shipStats[selectIndex].hp)
+    info.setLife(shipStats[selectIndex].hp + upgrades.hp)
     wave++
     waveLabel = textsprite.create("WAVE " + wave)
     waveLabel.z = 10
@@ -1168,19 +1181,14 @@ function setupWave(){
 }
 
 function endWave(){
-    state = "shop"
-    money += wave*5
+    state = "intermission"
     for (let v of activeEnemies) v.destroy()
     for (let v of activeProjectiles) v.destroy()
     activeEnemies = []
     activeProjectiles = []
-    waveLabel.destroy()
     playerVelocity = [0, 0]
-    moneyLabel = textsprite.create(money + " $", 15, 4)
-    moneyLabel.setPosition(80, 5)
-    dmgBoost = 0
+    waveLabel.destroy()
     basic.pause(5000)
-    moneyLabel.destroy()
     setupWave()
 }
 
@@ -1208,7 +1216,7 @@ function updateEnemies() {
         else if (enemy.y >= 120 - enemy.height / 2) sprites.setDataNumber(enemy, "moveDirY", -1)
         enemyDir[1] = sprites.readDataNumber(enemy, "moveDirY")
         enemyDir = normalize(enemyDir[0], enemyDir[1])
-        enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd * spdMultiplier, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd * spdMultiplier)
+        enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd)
         if (game.runtime() - sprites.readDataNumber(enemy, "lastShot") > (1000/enemyStats[enemyIndex].frt)){
             sprites.setDataNumber(enemy, "lastShot", game.runtime())
             let bullet = sprites.createProjectile(enemyBulletImg, -50-20*difficulties[difficultyIndex], 0, SpriteKind.EnemyProjectile)
@@ -1222,7 +1230,7 @@ function updateEnemies() {
 game.onUpdate(function () {
     if (state != "playing") return
     let velocity = normalize(playerVelocity[0], playerVelocity[1])
-    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * spdMultiplier), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * spdMultiplier))
+    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd))
     updateEnemies()
     if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn-activeEnemies.length > 0) {
         activeEnemies.push(spawnEnemy())
