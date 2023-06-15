@@ -15,17 +15,10 @@ class PlayerShip {
     }
 }
 
-class EnemyShip {
-    dmg: number;
-    hp: number;
-    spd: number;
-    frt: number;
+class EnemyShip extends PlayerShip {
     startWave: number;
     constructor(dmg: number, hp: number, spd: number, frt: number, startWave: number){
-        this.dmg = dmg;
-        this.hp = hp;
-        this.spd = spd;
-        this.frt = frt;
+        super(dmg, hp, spd, frt)
         this.startWave = startWave
     }
 }
@@ -848,7 +841,7 @@ b 3 3 b
 const difficulties = [0.7, 1, 1.5, 2]
 let difficultyIndex = 0
 
-const bulletSpeed = 3
+let delta = game.runtime()
 
 let selectMenu: Sprite
 let player: Sprite
@@ -1000,7 +993,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 `)
 
 controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
-    if (state == "playing"){
+    if (state == "playing" || state == "intermission"){
         playerVelocity[1] = Math.sign(controller.dy())
     } else if (state == "difficultySelect") {
         if (difficultyIndex <= 0) {
@@ -1013,13 +1006,13 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
 })
 
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
-    if (state == "playing") {
+    if (state == "playing" || state == "intermission") {
         playerVelocity[1] = Math.sign(controller.dy())
     }
 })
 
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (state == "playing") {
+    if (state == "playing" || state == "intermission") {
         playerVelocity[1] = Math.sign(controller.dy())
     } else if (state == "difficultySelect") {
         if (difficultyIndex >= 3) {
@@ -1032,7 +1025,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
-    if (state == "playing") {
+    if (state == "playing" || state == "intermission") {
         playerVelocity[1] = Math.sign(controller.dy())
     }
 })
@@ -1078,13 +1071,13 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function() {
             selectIndex = classSelectFrames.length - 1
         }
         selectMenu.setImage(classSelectFrames[selectIndex])
-    } else if (state == "playing") {
+    } else if (state == "playing" || state == "intermission") {
         playerVelocity[0] = Math.sign(controller.dx())
     }
 })
 
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    if (state == "playing") {
+    if (state == "playing" || state == "intermission") {
         playerVelocity[0] = Math.sign(controller.dx())
     }
 })
@@ -1097,13 +1090,13 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function() {
             selectIndex = 0
         }
         selectMenu.setImage(classSelectFrames[selectIndex])
-    } else if (state == "playing"){
+    } else if (state == "playing" || state == "intermission"){
         playerVelocity[0] = Math.sign(controller.dx())
     }
 })
 
 controller.right.onEvent(ControllerButtonEvent.Released, function() {
-    if (state == "playing"){
+    if (state == "playing" || state == "intermission"){
         playerVelocity[0] = Math.sign(controller.dx())
     }
 })
@@ -1158,8 +1151,8 @@ sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr
         upgrades.atc++
     }else if (dropIndex == 2) {
         upgrades.hp++
-    }else if (dropIndex == 2) {
-        upgrades.hp++
+    }else if (dropIndex == 3) {
+        upgrades.spd+=2
     }
     drop.destroy()
 })
@@ -1186,8 +1179,8 @@ function endWave(){
     for (let v of activeProjectiles) v.destroy()
     activeEnemies = []
     activeProjectiles = []
-    playerVelocity = [0, 0]
     waveLabel.destroy()
+    upgrades.spd = 0
     basic.pause(5000)
     setupWave()
 }
@@ -1228,11 +1221,13 @@ function updateEnemies() {
 }
 
 game.onUpdate(function () {
-    if (state != "playing") return
+    if (["playing", "intermission"].indexOf(state) == -1) return
+    let dta = game.runtime()-delta
+    delta = game.runtime()
     let velocity = normalize(playerVelocity[0], playerVelocity[1])
-    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd))
+    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * (shipStats[selectIndex].spd + upgrades.spd) * (dta / 20)), Math.clamp(10, 110, player.y + velocity[1] * (shipStats[selectIndex].spd + upgrades.spd) * (dta / 20)))
     updateEnemies()
-    if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn-activeEnemies.length > 0) {
+    if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn-activeEnemies.length > 0 && state == "playing") {
         activeEnemies.push(spawnEnemy())
         lastEnemySpawn = game.runtime()
     }
