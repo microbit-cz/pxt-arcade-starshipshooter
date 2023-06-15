@@ -31,11 +31,11 @@ const shipStats = [
 ]
 
 const enemyStats = [
-    new EnemyShip(1, 4, 2, .75, 2),
-    new EnemyShip(1, 8, 1.2, .4, 4),
-    new EnemyShip(1, 6, 1.4, .85, 1),
-    new EnemyShip(1, 10, 1.6, .85, 7),
-    new EnemyShip(2, 24, 1, .7, 10)
+    new EnemyShip(1, 4, 100, .75, 2),
+    new EnemyShip(1, 8, 60, .4, 4),
+    new EnemyShip(1, 6, 70, .85, 1),
+    new EnemyShip(1, 10, 80, .85, 7),
+    new EnemyShip(2, 24, 50, .7, 10)
 ]
 
 const classSelectFrames = [
@@ -780,17 +780,6 @@ img`
 9 a a 9 9 9 a a 9 
 9 9 a a a a a 9 9 
 . 9 9 9 9 9 9 9 . 
-`,
-img`
-. 7 7 7 7 7 7 7 . 
-7 7 8 8 8 8 8 7 7 
-7 8 8 8 8 8 8 8 7 
-7 8 7 8 8 7 8 8 7 
-7 8 8 7 8 8 7 8 7 
-7 8 7 8 8 7 8 8 7 
-7 8 8 8 8 8 8 8 7 
-7 7 8 8 8 8 8 7 7 
-. 7 7 7 7 7 7 7 . 
 `
 ]
 
@@ -1112,7 +1101,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
         let [x,y] = [enemy.x, enemy.y]
         enemy.destroy()
         if (enemiesToSpawn > 0){
-            if (randint(1, 8) == 8) {
+            if (randint(1, 10) == 10) {
                 let dropIndex = randint(0, dropImages.length-1)
                 let drop = sprites.createProjectile(dropImages[dropIndex], -10, 0, SpriteKind.Food)
                 drop.setPosition(x, y)
@@ -1146,13 +1135,11 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, p
 sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr: Sprite){
     let dropIndex = sprites.readDataNumber(drop, "dropIndex")
     if (dropIndex == 0){
-        info.changeLifeBy(Math.clamp(0, shipStats[selectIndex].hp + upgrades.hp, 3))
+        info.setLife(Math.clamp(0, shipStats[selectIndex].hp + upgrades.hp, 3))
     }else if (dropIndex == 1){
         upgrades.atc++
     }else if (dropIndex == 2) {
         upgrades.hp++
-    }else if (dropIndex == 3) {
-        upgrades.spd+=2
     }
     drop.destroy()
 })
@@ -1188,11 +1175,10 @@ function endWave(){
 
 function spawnEnemy() {
     let enemyIndex = Math.pickRandom(availableEnemies)
-    let enemy = sprites.create(enemySprites[enemyIndex], SpriteKind.Enemy)
-    enemy.setPosition(160 + enemy.width, randint(enemy.height / 2, 120 - enemy.height / 2))
+    let enemy = sprites.createProjectile(enemySprites[enemyIndex], -1 * enemyStats[enemyIndex].spd, Math.pickRandom([-1, 1]) * enemyStats[enemyIndex].spd,SpriteKind.Enemy)
+    enemy.setPosition(160, randint(enemy.height / 2, 120 - enemy.height / 2))
     sprites.setDataNumber(enemy, "health", enemyStats[enemyIndex].hp)
     sprites.setDataNumber(enemy, "index", enemyIndex)
-    sprites.setDataNumber(enemy, "moveDirY", Math.pickRandom([-1, 1]))
     sprites.setDataNumber(enemy, "lastShot", game.runtime())
     return enemy
 }
@@ -1201,15 +1187,14 @@ function updateEnemies() {
     for (let enemy of activeEnemies){
         let i = activeEnemies.indexOf(enemy)
         let enemyIndex = sprites.readDataNumber(enemy, "index")
-        let enemyDir = [0, 0]
+
+        if (enemy.y <= enemy.height / 2) enemy.vy = 1 * enemyStats[enemyIndex].spd
+        else if (enemy.y >= 120 - enemy.height / 2) enemy.vy = -1 * enemyStats[enemyIndex].spd
+
         if ((i == 0 && enemy.x > 80) || (i != 0 && enemy.x > 5 + activeEnemies[i-1].x + activeEnemies[i-1].width/2 + enemy.width/2)){
-            enemyDir[0] = -1
-        }
-        if (enemy.y <= enemy.height/2) sprites.setDataNumber(enemy, "moveDirY", 1)
-        else if (enemy.y >= 120 - enemy.height / 2) sprites.setDataNumber(enemy, "moveDirY", -1)
-        enemyDir[1] = sprites.readDataNumber(enemy, "moveDirY")
-        enemyDir = normalize(enemyDir[0], enemyDir[1])
-        enemy.setPosition(enemy.x + enemyDir[0] * enemyStats[enemyIndex].spd, enemy.y + enemyDir[1] * enemyStats[enemyIndex].spd)
+            enemy.vx = -Math.SQRT1_2 * enemyStats[enemyIndex].spd
+            enemy.vy = Math.sign(enemy.vy) * Math.SQRT1_2 * enemyStats[enemyIndex].spd
+        } else enemy.vx = 0
         if (game.runtime() - sprites.readDataNumber(enemy, "lastShot") > (1000/enemyStats[enemyIndex].frt)){
             sprites.setDataNumber(enemy, "lastShot", game.runtime())
             let bullet = sprites.createProjectile(enemyBulletImg, -50-20*difficulties[difficultyIndex], 0, SpriteKind.EnemyProjectile)
