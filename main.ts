@@ -1052,6 +1052,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         let projectile = sprites.createProjectile(bulletImg, 150, 0, SpriteKind.Projectile)
         projectile.setPosition(player.x + 12, player.y)
         activeProjectiles.push(projectile)
+    } else if (state == "dead"){
+        control.reset()
     }
 })
 
