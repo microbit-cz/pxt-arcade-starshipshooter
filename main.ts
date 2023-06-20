@@ -858,6 +858,9 @@ let upgrades = {
     spd: 0,
 }
 
+let kills = 0
+let pickedUpgrades = 0
+
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -1111,6 +1114,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
         }else{
             endWave()
         }
+        kills++
     }else {
         sprites.setDataNumber(enemy, "health", enemyHealth)
     }
@@ -1127,6 +1131,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, p
     activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
     enemy.destroy()
     enemiesToSpawn--
+    kills++
     if (enemiesToSpawn <= 0){
         endWave()
     }
@@ -1141,6 +1146,7 @@ sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr
     }else if (dropIndex == 2) {
         upgrades.hp++
     }
+    pickedUpgrades++
     drop.destroy()
 })
 
@@ -1216,4 +1222,30 @@ game.onUpdate(function () {
         activeEnemies.push(spawnEnemy())
         lastEnemySpawn = game.runtime()
     }
+})
+
+info.onLifeZero(function(){
+    state = "dead"
+    for (let v of activeEnemies){
+        v.destroy()
+    }
+    for (let v of activeProjectiles){
+        v.destroy()
+    }
+    waveLabel.destroy()
+    player.destroy()
+    let title = textsprite.create("You died", 15, 2)
+    title.setMaxFontHeight(10)
+    title.setPosition(80, 30)
+    waveLabel = textsprite.create("Wave: " + wave, 15, 4)
+    waveLabel.setPosition(80, 50)
+    let killsLabel = textsprite.create("Kills: " + kills, 15, 4)
+    killsLabel.setPosition(80, 58)
+    let upgradesLabel = textsprite.create("Upgrades: " + pickedUpgrades, 15, 4)
+    upgradesLabel.setPosition(80, 66)
+    let multiplierLabel = textsprite.create("Multiplier x" + difficulties[difficultyIndex], 15, 4)
+    multiplierLabel.setPosition(80, 90)
+    let scoreLabel = textsprite.create("Score: " + Math.round(((wave*100-100)+(pickedUpgrades*10)+(kills*2))*difficulties[difficultyIndex]), 15, 5)
+    scoreLabel.setPosition(80, 100)
+    scoreLabel.setMaxFontHeight(9)
 })
