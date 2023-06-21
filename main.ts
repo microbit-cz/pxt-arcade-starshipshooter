@@ -854,12 +854,12 @@ let availableEnemies:Array<number> = []
 
 let upgrades = {
     atc: 0,
-    hp: 0,
-    spd: 0,
+    dfc: 0,
 }
 
 let kills = 0
 let pickedUpgrades = 0
+let lastAInput = 0
 
 scene.setBackgroundImage(img`
 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6ffffffffffffffffffffffffffffffffffffffffffffffff
@@ -1023,6 +1023,16 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
 })
 
 controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
+    if (state == "playing") {
+        if (game.runtime() - lastFire < fireDelay) return
+        lastFire = game.runtime()
+        let projectile = sprites.createProjectile(bulletImg, 150, 0, SpriteKind.Projectile)
+        projectile.setPosition(player.x + 12, player.y)
+        activeProjectiles.push(projectile)
+        return
+    }
+    if (game.runtime() - lastAInput < 250) return
+    lastAInput = game.runtime()
     if (state == "menu"){
         title.destroy()
         title = textsprite.create("Select your ship", 15)
@@ -1046,12 +1056,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         player.setPosition(24, 64)
         spawnRate = Math.round(1000/difficulties[difficultyIndex])
         setupWave()
-    }else if (state == "playing"){
-        if (game.runtime()-lastFire < fireDelay) return
-        lastFire = game.runtime()
-        let projectile = sprites.createProjectile(bulletImg, 150, 0, SpriteKind.Projectile)
-        projectile.setPosition(player.x + 12, player.y)
-        activeProjectiles.push(projectile)
     } else if (state == "dead"){
         control.reset()
     }
@@ -1099,7 +1103,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
     if (state != "playing") return
     let enemyHealth = sprites.readDataNumber(enemy, "health")
     bullet.destroy()
-    enemyHealth -= (shipStats[selectIndex].dmg + upgrades.atc)
+    enemyHealth -= (shipStats[selectIndex].dmg + 2*upgrades.atc)
     if (enemyHealth <= 0){
         activeEnemies.splice(activeEnemies.indexOf(enemy), 1)
         enemiesToSpawn--
@@ -1124,7 +1128,9 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function(bullet: Spri
 
 sprites.onOverlap(SpriteKind.EnemyProjectile, SpriteKind.Player, function(bullet: Sprite, plr: Sprite) {
     if (state != "playing") return
-    info.changeLifeBy(-sprites.readDataNumber(bullet, "damage"))
+    if (game.runtime() - upgrades.dfc > 5000){
+        info.changeLifeBy(-sprites.readDataNumber(bullet, "damage"))
+    }
     bullet.destroy()
 })
 
@@ -1142,11 +1148,11 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function(enemy: Sprite, p
 sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr: Sprite){
     let dropIndex = sprites.readDataNumber(drop, "dropIndex")
     if (dropIndex == 0){
-        info.setLife(Math.clamp(0, shipStats[selectIndex].hp + upgrades.hp, 3))
-    }else if (dropIndex == 1){
+        info.changeLifeBy(1)
+    }else if (dropIndex == 1 && upgrades.atc < 3){
         upgrades.atc++
     }else if (dropIndex == 2) {
-        upgrades.hp++
+        upgrades.dfc = game.runtime()
     }
     pickedUpgrades++
     drop.destroy()
@@ -1154,7 +1160,7 @@ sprites.onOverlap(SpriteKind.Food, SpriteKind.Player, function(drop: Sprite, plr
 
 
 function setupWave(){
-    info.setLife(shipStats[selectIndex].hp + upgrades.hp)
+    info.setLife(shipStats[selectIndex].hp)
     wave++
     waveLabel = textsprite.create("WAVE " + wave)
     waveLabel.z = 10
@@ -1175,7 +1181,6 @@ function endWave(){
     activeEnemies = []
     activeProjectiles = []
     waveLabel.destroy()
-    upgrades.spd = 0
     basic.pause(5000)
     setupWave()
 }
@@ -1205,7 +1210,7 @@ function updateEnemies() {
         } else enemy.vx = 0
         if (game.runtime() - sprites.readDataNumber(enemy, "lastShot") > (1000/enemyStats[enemyIndex].frt)){
             sprites.setDataNumber(enemy, "lastShot", game.runtime())
-            let bullet = sprites.createProjectile(enemyBulletImg, -50-20*difficulties[difficultyIndex], 0, SpriteKind.EnemyProjectile)
+            let bullet = sprites.createProjectile(enemyBulletImg, -40-40*difficulties[difficultyIndex], 0, SpriteKind.EnemyProjectile)
             bullet.setPosition(enemy.x - 12, enemy.y)
             sprites.setDataNumber(bullet, "damage", enemyStats[enemyIndex].dmg)
             activeProjectiles.push(bullet)
@@ -1218,7 +1223,7 @@ game.onUpdate(function () {
     let dta = game.runtime()-delta
     delta = game.runtime()
     let velocity = normalize(playerVelocity[0], playerVelocity[1])
-    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * (shipStats[selectIndex].spd + upgrades.spd) * (dta / 20)), Math.clamp(10, 110, player.y + velocity[1] * (shipStats[selectIndex].spd + upgrades.spd) * (dta / 20)))
+    player.setPosition(Math.clamp(10, 150, player.x + velocity[0] * shipStats[selectIndex].spd * (dta / 20)), Math.clamp(10, 110, player.y + velocity[1] * shipStats[selectIndex].spd * (dta / 20)))
     updateEnemies()
     if (lastEnemySpawn + spawnRate < game.runtime() && activeEnemies.length < 4 && enemiesToSpawn-activeEnemies.length > 0 && state == "playing") {
         activeEnemies.push(spawnEnemy())
@@ -1227,6 +1232,7 @@ game.onUpdate(function () {
 })
 
 info.onLifeZero(function(){
+    lastAInput = game.runtime()
     state = "dead"
     for (let v of activeEnemies){
         v.destroy()
@@ -1236,14 +1242,14 @@ info.onLifeZero(function(){
     }
     waveLabel.destroy()
     player.destroy()
-    let title = textsprite.create("You died", 15, 2)
+    let title = textsprite.create("Game Over", 15, 2)
     title.setMaxFontHeight(10)
     title.setPosition(80, 30)
     waveLabel = textsprite.create("Wave: " + wave, 15, 4)
     waveLabel.setPosition(80, 50)
     let killsLabel = textsprite.create("Kills: " + kills, 15, 4)
     killsLabel.setPosition(80, 58)
-    let upgradesLabel = textsprite.create("Upgrades: " + pickedUpgrades, 15, 4)
+    let upgradesLabel = textsprite.create("Powerups: " + pickedUpgrades, 15, 4)
     upgradesLabel.setPosition(80, 66)
     let multiplierLabel = textsprite.create("Multiplier x" + difficulties[difficultyIndex], 15, 4)
     multiplierLabel.setPosition(80, 90)
