@@ -1056,7 +1056,11 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function() {
         player.setPosition(24, 64)
         spawnRate = Math.round(1000/difficulties[difficultyIndex])
         setupWave()
-    } else if (state == "dead"){
+    }
+})
+
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (state == "dead") {
         control.reset()
     }
 })
@@ -1232,7 +1236,6 @@ game.onUpdate(function () {
 })
 
 info.onLifeZero(function(){
-    lastAInput = game.runtime()
     state = "dead"
     for (let v of activeEnemies){
         v.destroy()
